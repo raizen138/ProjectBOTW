@@ -2,6 +2,12 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
+/**
+ * The Legend of Zelda: A Breath of the Past
+ * @author Rubén Hernández
+ * @version 0.1
+ *
+ */
 public class CodigoNES {
 	
 	static final int MAP_HEIGHT = 11;

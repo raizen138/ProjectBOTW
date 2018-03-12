@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * The Legend of Zelda: A Breath of the Past
  * @author Rubén Hernández
- * @version 0.1
+ * @version 0.2
  *
  */
 public class CodigoNES {
@@ -167,7 +167,7 @@ public class CodigoNES {
 		 * 37 = LanzaW // 41 = I
 		 * 38 = LanzaA // 42 = I
 		 * 39 = LanzaS // 43 = I
-		 * 37 = LanzaD // 44 = I
+		 * 40 = LanzaD // 44 = I
 		 * 45 = link Death
 		 */
 
@@ -251,7 +251,7 @@ public class CodigoNES {
         t.setImgbackground("mapa0cerrado.jpg");
         f.setTitle("TLOZ Breath of the Past");
         t.setPAD(0);
-        
+        t.setActfreedraw(true);
      
 		
 		int[] moblinRange = {8};
@@ -273,6 +273,12 @@ public class CodigoNES {
 		sword.writeRange(allSprites);
 		lance.writeRange(allSprites);
 		moblin[1].writeRange(allSprites);
+														    //5					 10						15						   20				    25							  30									35									40								 45
+		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1, 1, 1.375, 1, 1, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1};
+		double[] freedrawx = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.1875, 1, 1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5};
+											///5			10				15			  20			   25						30						35							40							45
+		t.setFreedrawx(freedrawx);
+		t.setFreedrawy(freedrawy);
 		t.setImatges(allSprites);
 			
 		currentMap.layout = mapacamara.layout;
@@ -551,7 +557,6 @@ public class CodigoNES {
 		}
 		else if (currentMap.layout[x2][y2] == 8)
 		{
-			System.out.println("KYAAAA");
 			attack(x2,y2);
 		}
 }
@@ -564,7 +569,7 @@ public class CodigoNES {
 		link.attack(moblin[enemigo]);
 		boolean etamuerto = moblin[enemigo].die();
 		
-		System.out.println(link.weapon.dura);
+		
 		if(link.weapon.dura == 0) {
 			link.weapon.repair();
 			link.giveWeapon(fists);

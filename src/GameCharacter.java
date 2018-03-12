@@ -33,7 +33,10 @@ public class GameCharacter
 	{
 		target.damage(weapon.attack);
 		
-		weapon.dura -= 1;
+		if(name.equals("Link"))
+		{
+			weapon.dura -= 1;
+		}
 		
 		return true;
 	}

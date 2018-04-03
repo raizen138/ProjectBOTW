@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * The Legend of Zelda: A Breath of the Past
  * @author Rubén Hernández
- * @version 0.2
+ * @version 0.3
  *
  */
 public class CodigoNES {
@@ -119,11 +119,11 @@ public class CodigoNES {
      
     static String currentMapName = new String();
     
-    static Weapon sword = new Weapon(20, "espada.png", 2, 3);
-    static Weapon lance = new Weapon(21, "lanza.png", 5, 2);
+    static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
+    static Weapon lance = new Weapon(21, "spr/lanza.png", 5, 2);
     static Weapon fists = new Weapon(0, "", 999, 1);
     static int[] linkRange = {1, 2, 3, 4, 13, 14, 15, 16, 19, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45};
-	static String[] linkSprites = {"linkSP.png","linkAP.png","linkDP.png","linkWP.png", "linkWeP.png", "linkAeP.png", "linkSeP.png", "linkDeP.png", "linkTP.png", "linkWN.png", "linkAN.png", "linkSN.png", "linkDN.png", "linkWE.png", "linkAE.png", "linkSE.png", "linkDE.png", "linkWeE.png", "linkAeE.png", "linkSeE.png", "linkDeE.png", "linkWL.png", "linkAL.png", "linkSL.png", "linkDL.png", "linkWeL.png", "linkAeL.png", "linkSeL.png", "linkDeL.png", "linkD.png"};
+	static String[] linkSprites = {"spr/linkSP.png","spr/linkAP.png","spr/linkDP.png","spr/linkWP.png", "spr/linkWeP.png", "spr/linkAeP.png", "spr/linkSeP.png", "spr/linkDeP.png", "spr/linkTP.png", "spr/linkWN.png", "spr/linkAN.png", "spr/linkSN.png", "spr/linkDN.png", "spr/linkWE.png", "spr/linkAE.png", "spr/linkSE.png", "spr/linkDE.png", "spr/linkWeE.png", "spr/linkAeE.png", "spr/linkSeE.png", "spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png", "spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png"};
 	static GameCharacter link = new GameCharacter(linkRange, linkSprites, 3, fists, "Link");
 	static GameCharacter[] moblin = new GameCharacter[9];
 	
@@ -228,11 +228,11 @@ public class CodigoNES {
 		
 		
 		
-	    mapacamara = new MapChunk("Camara Resurrección", mapa0, mapa0Exits, duplicateMatrix(mapa0), mapa0Char, "mapa0cerrado.jpg");
-		mapasantuario = new MapChunk("Santuario Resurrección", mapa1, mapa1Exits, duplicateMatrix(mapa1), mapaChar, "mapa1cerrado.jpg");
-		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "mapa2.jpg");
-		mapaviejo = new MapChunk("El mapa del viejo", mapa3, mapa3Exits, duplicateMatrix(mapa3), mapaChar, "mapa3.jpg");
-		mapaespada = new MapChunk("Primeros Moblins", mapa4, mapa4Exits, duplicateMatrix(mapa4), mapa4Char, "mapa4.jpg");
+	    mapacamara = new MapChunk("Camara Resurrección", mapa0, mapa0Exits, duplicateMatrix(mapa0), mapa0Char, "map/mapa0cerrado.jpg");
+		mapasantuario = new MapChunk("Santuario Resurrección", mapa1, mapa1Exits, duplicateMatrix(mapa1), mapaChar, "map/mapa1cerrado.jpg");
+		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg");
+		mapaviejo = new MapChunk("El mapa del viejo", mapa3, mapa3Exits, duplicateMatrix(mapa3), mapaChar, "map/mapa3.jpg");
+		mapaespada = new MapChunk("Primeros Moblins", mapa4, mapa4Exits, duplicateMatrix(mapa4), mapa4Char, "map/mapa4.jpg");
 		
 		mapeado[0] = mapacamara;
 		mapeado[1] = mapasantuario;
@@ -248,14 +248,14 @@ public class CodigoNES {
         t.setActborde(false);
         f.setActetiquetes(false);
         t.setActimgbackground(true);
-        t.setImgbackground("mapa0cerrado.jpg");
+        t.setImgbackground("map/mapa0cerrado.jpg");
         f.setTitle("TLOZ Breath of the Past");
         t.setPAD(0);
         t.setActfreedraw(true);
      
 		
 		int[] moblinRange = {8};
-		String[] moblinSprites = {"mobSP.png"};
+		String[] moblinSprites = {"spr/mobSP.png"};
 		
 		for(int i = 1; i < moblin.length; i++)
 		{
@@ -274,7 +274,7 @@ public class CodigoNES {
 		lance.writeRange(allSprites);
 		moblin[1].writeRange(allSprites);
 														    //5					 10						15						   20				    25							  30									35									40								 45
-		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1, 1, 1.375, 1, 1, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1};
+		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1, 1, 1.375, 1.5, 1.5, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1};
 		double[] freedrawx = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.1875, 1, 1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5};
 											///5			10				15			  20			   25						30						35							40							45
 		t.setFreedrawx(freedrawx);
@@ -383,7 +383,7 @@ public class CodigoNES {
 			e.printStackTrace();
 		}
 		t.setActimatges(false);
-		t.setImgbackground("gameover.jpg");
+		t.setImgbackground("map/gameover.jpg");
 		t.dibuixa(currentMap.layout);
 		try 
 		{
@@ -409,13 +409,15 @@ public class CodigoNES {
 		{
 			if(currentMap.exitLayout[x-1][y] == 22 || currentMap.exitLayout[x-1][y] == 23 || currentMap.exitLayout[x-1][y] == 28) {
 				direccion = 24;
+				link.estado = 1;
 			}else if(currentMap.layout[x-1][y] == 21 && link.weapon == fists) {
 				Item(lance);
-				
+				link.estado = 0;
 			}
 			
 			else {
 			direccion = linkW;
+			link.estado = 0;
 			}
 		}
 		
@@ -423,10 +425,13 @@ public class CodigoNES {
 		{
 			if(currentMap.exitLayout[x+1][y] == 22 || currentMap.exitLayout[x+1][y] == 23 || currentMap.exitLayout[x+1][y] == 28) {
 				direccion = 26;
+				link.estado = 1;
 			}else if(currentMap.layout[x+1][y] == 21 && link.weapon == fists) {
-				Item(lance);	
+				Item(lance);
+				link.estado = 0;
 			}else {
 			direccion = linkS;
+			link.estado = 0;
 			}
 		}
 		
@@ -434,10 +439,13 @@ public class CodigoNES {
 		{
 			if(currentMap.exitLayout[x][y-1] == 22 || currentMap.exitLayout[x][y-1] == 23 || currentMap.exitLayout[x][y-1] == 28) {
 				direccion = 25;
+				link.estado = 1;
 			}else if(currentMap.layout[x][y-1] == 21 && link.weapon == fists) {
 				Item(lance);
+				link.estado = 0;
 			}else {
 			direccion = linkA;
+			link.estado = 0;
 			}
 		}
 		
@@ -445,30 +453,38 @@ public class CodigoNES {
 		{
 			if(currentMap.exitLayout[x][y+1] == 22 || currentMap.exitLayout[x][y+1] == 23 || currentMap.exitLayout[x][y+1] == 28) {
 				direccion = 27;
+				link.estado = 1;
 			}else if(currentMap.layout[x][y+1] == 21 && link.weapon == fists) {
 				Item(lance);	
+				link.estado = 0;
 			}else {
 			direccion = linkD;
+			link.estado = 0;
 			}
 		}
 		}else {
 			if(mueve[0] == -1) 
 			{
 				direccion = linkW;
+				link.estado = 0;
 			}
 			if(mueve[0] == 1) 
 			{
 				direccion = linkS;
+				link.estado = 0;
 			}
 			if(mueve[1] == -1) 
 			{
 				direccion = linkA;
+				link.estado = 0;
 			}
 			if(mueve[1] == 1) 
 			{
 				direccion = linkD;
+				link.estado = 0;
 			}
 		}
+		if(link.estado == 0) {
 		if(mueve[0] == 0 && mueve[1] == 0) {
 			if (currentMap.layout[x][y] == linkS || currentMap.layout[x][y] == linkSe) {
 				direccion = linkSe;
@@ -484,7 +500,7 @@ public class CodigoNES {
 			}
 			interact(direccion);
 		}
-
+		}
 		
 		if(!doesChangeMap) 
 		{	
@@ -618,11 +634,11 @@ public class CodigoNES {
 	private static void changeBgImg(String name) {
 		// TODO Auto-generated method stub
 		if (name.equals("Camara Resurrección")) {
-			mapeado[0].BgImg = "mapa0abierto.jpg";
+			mapeado[0].BgImg = "map/mapa0abierto.jpg";
 			currentMap.BgImg = mapeado[0].BgImg;
 		}
 		else if (name.equals("Santuario Resurrección")) {
-			mapeado[1].BgImg = "mapa1abierto.jpg";
+			mapeado[1].BgImg = "map/mapa1abierto.jpg";
 			currentMap.BgImg = mapeado[1].BgImg;
 		}
 	}

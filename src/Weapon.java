@@ -18,7 +18,7 @@ public class Weapon
 	
 	public void writeRange(String[] spriteArray)
 	{
-			spriteArray[range] = sprite;
+		spriteArray[range] = sprite;
 	}
 	
 	public void repair()

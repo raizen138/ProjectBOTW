@@ -6,6 +6,7 @@ public class GameCharacter
 	int health;
 	String name;
 	Weapon weapon;
+	int estado;
 	
 	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon, String newName)
 	{
@@ -14,6 +15,7 @@ public class GameCharacter
 		health = newHealth;
 		weapon = newWeapon;
 		name = newName;
+		estado = 0;
 	}
 	
 	public void writeRange(String[] spriteArray)
@@ -31,6 +33,9 @@ public class GameCharacter
 	
 	public boolean attack(GameCharacter target)
 	{
+		if(estado == 1) {
+			return false;
+		}
 		target.damage(weapon.attack);
 		
 		if(name.equals("Link"))

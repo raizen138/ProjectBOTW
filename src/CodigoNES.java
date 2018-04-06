@@ -5,14 +5,14 @@ import java.util.Scanner;
 /**
  * The Legend of Zelda: A Breath of the Past
  * @author Rubén Hernández
- * @version 0.3
+ * @version 0.4
  *
  */
 public class CodigoNES {
 	
 	static final int MAP_HEIGHT = 11;
 	static final int MAP_WIDTH = 16;
-	static final int nmaps = 5;
+	static final int nmaps = 6;
 	static int linkS = 1;
 	static int linkW = 4;
 	static int linkD = 3;
@@ -96,13 +96,27 @@ public class CodigoNES {
  			{23,22,22,0,0,0,0,0,0,0,0,0,6,6,6,6},
  			{6,28,28,7,7,7,7,7,7,7,7,7,6,6,6,6},
        		};
-
+    static int [][] mapa5 = {
+       		{6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+       		{6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+       		{6,6,6,6,6,22,22,22,22,22,22,6,6,6,6,6},
+       		{6,6,22,22,22,22,22,22,22,22,22,22,22,22,22,23},
+       		{6,22,22,22,22,22,6,6,6,6,6,22,22,22,22,23},
+       		{6,22,22,22,22,6,6,0,18,0,6,6,22,22,22,23},
+ 			{6,22,22,22,22,6,6,0,0,0,6,6,22,22,22,23},
+ 			{6,22,22,22,22,6,6,6,0,6,6,6,22,22,22,23},
+ 			{6,22,22,22,22,22,6,6,0,6,6,22,22,22,22,23},
+ 			{6,22,22,22,22,22,22,6,0,6,22,22,22,22,22,23},
+ 			{6,28,28,28,28,28,28,28,28,28,28,28,28,28,28,6},
+       		};
+    
     
 	static HashMap<Integer, String> mapa0Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa1Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa2Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa3Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa4Exits = new HashMap<>();
+	static HashMap<Integer, String> mapa5Exits = new HashMap<>();
 	
     
     
@@ -114,6 +128,7 @@ public class CodigoNES {
 	static MapChunk mapagreat;
 	static MapChunk mapaviejo;
 	static MapChunk mapaespada;
+	static MapChunk mapaagua;
     
     static MapChunk currentMap = new MapChunk();
      
@@ -121,10 +136,10 @@ public class CodigoNES {
     
     static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
     static Weapon lance = new Weapon(21, "spr/lanza.png", 5, 2);
-    static Weapon fists = new Weapon(0, "", 999, 1);
+    static Weapon fists = new Weapon(0, "", 99, 1);
     static int[] linkRange = {1, 2, 3, 4, 13, 14, 15, 16, 19, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45};
 	static String[] linkSprites = {"spr/linkSP.png","spr/linkAP.png","spr/linkDP.png","spr/linkWP.png", "spr/linkWeP.png", "spr/linkAeP.png", "spr/linkSeP.png", "spr/linkDeP.png", "spr/linkTP.png", "spr/linkWN.png", "spr/linkAN.png", "spr/linkSN.png", "spr/linkDN.png", "spr/linkWE.png", "spr/linkAE.png", "spr/linkSE.png", "spr/linkDE.png", "spr/linkWeE.png", "spr/linkAeE.png", "spr/linkSeE.png", "spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png", "spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png"};
-	static GameCharacter link = new GameCharacter(linkRange, linkSprites, 3, fists, "Link");
+	static Link link = new Link(linkRange, linkSprites, 3, fists);
 	static GameCharacter[] moblin = new GameCharacter[9];
 	
     public static void main(String[] args) {
@@ -181,8 +196,11 @@ public class CodigoNES {
 		mapa3Exits.put(9, "Great Plateau");
 		mapa4Exits.put(7, "Segundos Moblins");
 		mapa4Exits.put(28, "Segundos Moblins");
-		mapa4Exits.put(23, "La espada");
+		mapa4Exits.put(23, "La Espada");
 		mapa4Exits.put(9, "El mapa del viejo");
+		mapa5Exits.put(28, "Puente");
+		mapa5Exits.put(23, "Primeros Moblins");
+		
 		
 		int [][] mapa0Char = {
 	  			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -233,22 +251,19 @@ public class CodigoNES {
 		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg");
 		mapaviejo = new MapChunk("El mapa del viejo", mapa3, mapa3Exits, duplicateMatrix(mapa3), mapaChar, "map/mapa3.jpg");
 		mapaespada = new MapChunk("Primeros Moblins", mapa4, mapa4Exits, duplicateMatrix(mapa4), mapa4Char, "map/mapa4.jpg");
+		mapaagua = new MapChunk("La Espada", mapa5, mapa5Exits, duplicateMatrix(mapa5), mapaChar, "map/mapa5.jpg");
 		
 		mapeado[0] = mapacamara;
 		mapeado[1] = mapasantuario;
 		mapeado[2] = mapagreat;
 		mapeado[3] = mapaviejo;
 		mapeado[4] = mapaespada;
+		mapeado[5] = mapaagua;
 		 
 
 		
         t.setActimatges(true);
-        t.setActcolors(false);
-        t.setActlletres(false);
-        t.setActborde(false);
-        f.setActetiquetes(false);
         t.setActimgbackground(true);
-        t.setImgbackground("map/mapa0cerrado.jpg");
         f.setTitle("TLOZ Breath of the Past");
         t.setPAD(0);
         t.setActfreedraw(true);
@@ -259,7 +274,7 @@ public class CodigoNES {
 		
 		for(int i = 1; i < moblin.length; i++)
 		{
-			moblin[i] = new GameCharacter(moblinRange, moblinSprites, 3, fists, "Moblin " + i);
+			moblin[i] = new Enemy(moblinRange, moblinSprites, 3, fists);
 		}
 		
 		String[] allSprites = new String[60];
@@ -291,6 +306,7 @@ public class CodigoNES {
 		
 		
         t.dibuixa(currentMap.layout);
+        t.setImgbackground(currentMap.BgImg);
 		
 		System.out.println("Wake up... Link...");
 		
@@ -554,9 +570,11 @@ public class CodigoNES {
 			{
 				if (flagSword == false) 
 				{
-					System.out.println("It's dangerous to go alone, take this!");
+					if(!link.hasWeapon()) {
 					Item(sword);
+					System.out.println("It's dangerous to go alone, take this!");
 					flagSword = true;
+					}
 				}
 				else 
 				{
@@ -570,12 +588,21 @@ public class CodigoNES {
 			{
 			System.out.println("This chest was already opened, it has nothing inside...");
 			}
+			if (currentMap.name.equals("La Espada")) {
+				if(!link.hasWeapon()) {
+					Item(sword);
+					currentMap.layout[x2][y2] = 0;
+				}
+				
+			}
 		}
 		else if (currentMap.layout[x2][y2] == 8)
 		{
 			attack(x2,y2);
 		}
 }
+
+
 
 	private static void attack(int x3, int y3) {
 		// TODO Auto-generated method stub

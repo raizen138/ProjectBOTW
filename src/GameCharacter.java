@@ -1,20 +1,18 @@
 
-public class GameCharacter 
+public abstract class GameCharacter 
 {
 	int[] range;
 	String[] sprites;
 	int health;
-	String name;
 	Weapon weapon;
 	int estado;
 	
-	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon, String newName)
+	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon)
 	{
 		range = newRange;
 		sprites = allSprites;
 		health = newHealth;
 		weapon = newWeapon;
-		name = newName;
 		estado = 0;
 	}
 	
@@ -26,35 +24,18 @@ public class GameCharacter
 		}
 	}
 	
-	public void giveWeapon(Weapon newWeapon)
-	{
-		weapon = newWeapon;
-	}
-	
-	public boolean attack(GameCharacter target)
-	{
-		if(estado == 1) {
-			return false;
-		}
-		target.damage(weapon.attack);
-		
-		if(name.equals("Link"))
-		{
-			weapon.dura -= 1;
-		}
-		
-		return true;
-	}
-	
 	
 	public boolean die()
 	{
 		if(health == 0) {
 			return true;
 		}else {
-		return false;
+		return false; 
 		}
 	}
+	
+	public abstract boolean attack(GameCharacter target);
+
 	
 	
 	public boolean damage(int amount)

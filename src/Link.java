@@ -3,7 +3,7 @@ public class Link extends GameCharacter{
 
 	public Link(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon) {
 		super(newRange, allSprites, newHealth, newWeapon);
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 
@@ -26,7 +26,6 @@ public class Link extends GameCharacter{
 	}
 	
 	public boolean hasWeapon() {
-		// TODO Auto-generated method stub
 		if(weapon.range == 0) {
 			return false;
 		}else {

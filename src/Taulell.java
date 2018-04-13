@@ -76,8 +76,10 @@ public class Taulell extends JPanel {
 																									// nombre
 	private Font font = new Font("SansSerif", Font.PLAIN, 22);
 
-	private int mousefil = 0; // fila de l'ultim click al mouse
-	private int mousecol = 0; // columna de l'ultim click al mouse
+	private int mousefil = -1; // fila de l'ultim click al mouse
+	private int mousecol = -1; // columna de l'ultim click al mouse
+	private int actualMousefil = -1; // fila de l'ultim click al mouse
+	private int actualMousecol = -1; // columna de l'ultim click al mouse
 
 	public Taulell() {
 		addMouseListener(ml);
@@ -424,6 +426,18 @@ public class Taulell extends JPanel {
 	public int getMousecol() {
 		return mousecol;
 	}
+	
+	public int getActualMousefil() {
+		int temp = actualMousefil;
+		actualMousefil=-1;
+		return temp;
+	}
+
+	public int getActualMousecol() {
+		int temp = actualMousecol;
+		actualMousecol=-1;
+		return temp;
+	}
 
 	public void setMousefil(int mousefil) {
 		this.mousefil = mousefil;
@@ -431,6 +445,14 @@ public class Taulell extends JPanel {
 
 	public void setMousecol(int mousecol) {
 		this.mousecol = mousecol;
+	}
+	
+	public void setActualMousefil(int mousefil) {
+		this.actualMousefil = mousefil;
+	}
+
+	public void setActualMousecol(int mousecol) {
+		this.actualMousecol = mousecol;
 	}
 
 }
@@ -571,6 +593,9 @@ class SquareRx2 {
 
 		t.setMousefil(fil);
 		t.setMousecol(col);
+		t.setActualMousefil(fil);
+		t.setActualMousecol(col);
+		
 		// si vols que les teves opcions vagin per ratolí, a partir d'aquesta
 		// funció hauries de cridar una funcio estatica de la TEVA classe. També
 		// pots consultar les variables mitjançant els getters de mosuefil y

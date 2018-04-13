@@ -35,4 +35,19 @@ public class MapChunk
 	{
 		return "Name: " + name + "\nExits: " + exits;
 	}
+	
+	public void changeBgImg() {
+		// TODO Auto-generated method stub
+		if (name.equals("Camara Resurrección")) {
+			BgImg = "map/mapa0abierto.jpg";
+		}
+		else if (name.equals("Santuario Resurrección")) {
+			BgImg = "map/mapa1abierto.jpg";
+		}
+		else if (name.equals("La Espada")) {
+			BgImg = "map/mapa5noes.jpg";
+		}
+	}
+	
+	
 }

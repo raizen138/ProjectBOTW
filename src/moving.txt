@@ -1,0 +1,114 @@
+boolean doesChangeMap = changeMap(mueve[0], mueve[1]);
+		int direccion = -1;
+	
+
+		if (seMueve2) {
+			seMueve2 = false;
+			if (!doesChangeMap) {
+				if (mueve[0] == -1) {
+					if (currentMap.exitLayout[x - 1][y] == 22 || currentMap.exitLayout[x - 1][y] == 23
+							|| currentMap.exitLayout[x - 1][y] == 28) {
+						direccion = 24;
+						link.estado = 1;
+					} else if (currentMap.layout[x - 1][y] == 21 && link.weapon == fists) {
+						Item(lance);
+						link.estado = 0;
+					}
+
+					else {
+						direccion = linkW;
+						link.estado = 0;
+					}
+				}
+
+				if (mueve[0] == 1) {
+					if (currentMap.exitLayout[x + 1][y] == 22 || currentMap.exitLayout[x + 1][y] == 23
+							|| currentMap.exitLayout[x + 1][y] == 28) {
+						direccion = 26;
+						link.estado = 1;
+					} else if (currentMap.layout[x + 1][y] == 21 && link.weapon == fists) {
+						Item(lance);
+						link.estado = 0;
+					} else {
+						direccion = linkS;
+						link.estado = 0;
+					}
+				}
+
+				if (mueve[1] == -1) {
+					if (currentMap.exitLayout[x][y - 1] == 22 || currentMap.exitLayout[x][y - 1] == 23
+							|| currentMap.exitLayout[x][y - 1] == 28) {
+						direccion = 25;
+						link.estado = 1;
+					} else if (currentMap.layout[x][y - 1] == 21 && link.weapon == fists) {
+						Item(lance);
+						link.estado = 0;
+					} else {
+						direccion = linkA;
+						link.estado = 0;
+					}
+				}
+
+				if (mueve[1] == 1) {
+					if (currentMap.exitLayout[x][y + 1] == 22 || currentMap.exitLayout[x][y + 1] == 23
+							|| currentMap.exitLayout[x][y + 1] == 28) {
+						direccion = 27;
+						link.estado = 1;
+					} else if (currentMap.layout[x][y + 1] == 21 && link.weapon == fists) {
+						Item(lance);
+						link.estado = 0;
+					} else {
+						direccion = linkD;
+						link.estado = 0;
+					}
+				}
+			} else {
+				if (mueve[0] == -1) {
+					direccion = linkW;
+					link.estado = 0;
+				}
+				if (mueve[0] == 1) {
+					direccion = linkS;
+					link.estado = 0;
+				}
+				if (mueve[1] == -1) {
+					direccion = linkA;
+					link.estado = 0;
+				}
+				if (mueve[1] == 1) {
+					direccion = linkD;
+					link.estado = 0;
+				}
+			}
+			if (link.estado == 0) {
+				if (mueve[0] == 0 && mueve[1] == 0 && f.getUltimChar() == 'k') {
+					if (currentMap.layout[x][y] == linkS || currentMap.layout[x][y] == linkSe) {
+						direccion = linkSe;
+					} else if (currentMap.layout[x][y] == linkW || currentMap.layout[x][y] == linkWe) {
+						direccion = linkWe;
+					} else if (currentMap.layout[x][y] == linkA || currentMap.layout[x][y] == linkAe) {
+						direccion = linkAe;
+					} else if (currentMap.layout[x][y] == linkD || currentMap.layout[x][y] == linkDe) {
+						direccion = linkDe;
+					}
+					interact(direccion);
+				}
+			}
+		} else {
+			/// System.out.println(f.getUltimChar());
+			direccion = getDirection();
+		}
+
+		if (!doesChangeMap) {
+			System.out.println("me2");
+			boolean semueve = dale(direccion, x, y, mueve[0], mueve[1]);
+
+			if (semueve == true) {
+				x += mueve[0];
+				y += mueve[1];
+			}
+		} else {
+			changeLinkToNextMap(direccion);
+		}
+
+	}

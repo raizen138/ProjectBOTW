@@ -6,6 +6,8 @@ public abstract class GameCharacter
 	int health;
 	Weapon weapon;
 	int estado;
+	int x;
+	int y;
 	
 	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon)
 	{
@@ -35,8 +37,9 @@ public abstract class GameCharacter
 	}
 	
 	public abstract boolean attack(GameCharacter target);
-
 	
+	public abstract boolean move();
+
 	
 	public boolean damage(int amount)
 	{
@@ -44,4 +47,7 @@ public abstract class GameCharacter
 		
 		return true;
 	}
+	
+	public abstract void Update();
+
 }

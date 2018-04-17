@@ -3,6 +3,8 @@ public class Link extends GameCharacter{
 
 	public Link(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon) {
 		super(newRange, allSprites, newHealth, newWeapon);
+		x = 6;
+		y = 5;
 		
 	}
 	
@@ -31,6 +33,20 @@ public class Link extends GameCharacter{
 		}else {
 			return true;
 		}
+	}
+
+
+	@Override
+	public boolean move() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void Update() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

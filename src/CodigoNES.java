@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.2.0
+ * @version Alpha 0.2.1
  *
  */
 public class CodigoNES {
@@ -36,9 +37,10 @@ public class CodigoNES {
 
 	static boolean flagSword = false;
 	static int timercito = 0;
+	
+	static int[] moblinRange = { 8 };
+	static String[] moblinSprites = { "spr/mobSP.png" };
 
-	static int x = 6;
-	static int y = 5;
 
 	static int[][] mapa0 = { { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
 			{ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 }, { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
@@ -69,9 +71,9 @@ public class CodigoNES {
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 8, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 8, 0, 0, 0, 6, 6, 6, 6 },
+			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
 			{ 6, 28, 28, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6 }, };
 	static int[][] mapa5 = { { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
@@ -119,7 +121,7 @@ public class CodigoNES {
 			"spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png",
 			"spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png" };
 	static Link link = new Link(linkRange, linkSprites, 3, fists);
-	static GameCharacter[] moblin = new GameCharacter[9];
+	static ArrayList<GameCharacter> moblin = new ArrayList<GameCharacter>();
 
 	public static void main(String[] args) {
 		//
@@ -174,15 +176,15 @@ public class CodigoNES {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 		mapacamara = new MapChunk("Camara Resurrección", mapa0, mapa0Exits, duplicateMatrix(mapa0), mapa0Char,
-				"map/mapa0cerrado.jpg");
+				"map/mapa0cerrado.jpg", 0);
 		mapasantuario = new MapChunk("Santuario Resurrección", mapa1, mapa1Exits, duplicateMatrix(mapa1), mapaChar,
-				"map/mapa1cerrado.jpg");
-		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg");
+				"map/mapa1cerrado.jpg", 0);
+		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg", 0);
 		mapaviejo = new MapChunk("El mapa del viejo", mapa3, mapa3Exits, duplicateMatrix(mapa3), mapaChar,
-				"map/mapa3.jpg");
+				"map/mapa3.jpg", 0);
 		mapaespada = new MapChunk("Primeros Moblins", mapa4, mapa4Exits, duplicateMatrix(mapa4), mapa4Char,
-				"map/mapa4.jpg");
-		mapaagua = new MapChunk("La Espada", mapa5, mapa5Exits, duplicateMatrix(mapa5), mapaChar, "map/mapa5.jpg");
+				"map/mapa4.jpg", 2);
+		mapaagua = new MapChunk("La Espada", mapa5, mapa5Exits, duplicateMatrix(mapa5), mapaChar, "map/mapa5.jpg", 0);
 
 		mapeado[0] = mapacamara;
 		mapeado[1] = mapasantuario;
@@ -197,11 +199,9 @@ public class CodigoNES {
 		t.setPAD(0);
 		t.setActfreedraw(true);
 
-		int[] moblinRange = { 8 };
-		String[] moblinSprites = { "spr/mobSP.png" };
 
-		for (int i = 1; i < moblin.length; i++) {
-			moblin[i] = new Enemy(moblinRange, moblinSprites, 3, fists);
+		for (int i = 1; i < currentMap.nEnemy; i++) {
+			moblin.add(new Enemy(moblinRange, moblinSprites, 3, fists, i));
 		}
 
 		String[] allSprites = new String[60];
@@ -213,7 +213,7 @@ public class CodigoNES {
 		link.writeRange(allSprites);
 		sword.writeRange(allSprites);
 		lance.writeRange(allSprites);
-		moblin[1].writeRange(allSprites);
+		allSprites[8] = moblinSprites[0];
 		// 5 10 15 20 25 30 35 40 45
 		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1,
 				1, 1.375, 1.5, 1.5, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125,
@@ -266,10 +266,10 @@ public class CodigoNES {
 		// Auto-generated method stub
 		System.out.println(lastDir);
 		System.out.println(lastAction);
-		System.err.println(lastDirChar);
+		System.out.println(lastDirChar);
 		moving();
 		if(lastDirChar == 'j') {
-			attack(x+mueve[2],y+mueve[3]);
+			attack(link.x+mueve[2],link.y+mueve[3]);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'k') {
@@ -281,7 +281,15 @@ public class CodigoNES {
 			
 		}
 		if(timercito%3==0) {
-			moverenemigo();
+			EnemyUpdate();
+		}
+	}
+
+	private static void EnemyUpdate()
+	{
+		for(GameCharacter e : moblin)
+		{
+			e.Update();
 		}
 	}
 
@@ -302,65 +310,9 @@ public class CodigoNES {
 		return 's';
 	}
 
-	private static void moverenemigo() {
-
-		for (int x = 0; x < 11; x++) {
-			for (int y = 0; y < 16; y++) {
-				if (currentMap.layout[x][y] == 8) {
-					int enemigo = currentMap.charLayout[x][y];
-					int opt = (int) (Math.random() * 4);
-					switch (opt) {
-					case 0:
-						if (currentMap.exitLayout[x - 1][y] == 0 && currentMap.layout[x - 1][y] == 0) {
-							currentMap.layout[x - 1][y] = 8;
-							currentMap.charLayout[x - 1][y] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							x--;
-						}
-						break;
-					case 1:
-						if (currentMap.exitLayout[x][y - 1] == 0 && currentMap.layout[x][y - 1] == 0) {
-							currentMap.layout[x][y - 1] = 8;
-							currentMap.charLayout[x][y - 1] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							y--;
-						}
-						break;
-					case 2:
-						if (currentMap.exitLayout[x + 1][y] == 0 && currentMap.layout[x + 1][y] == 0) {
-							currentMap.layout[x + 1][y] = 8;
-							currentMap.charLayout[x + 1][y] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							x++;
-						}
-						break;
-					case 3:
-						if (currentMap.exitLayout[x][y + 1] == 0 && currentMap.layout[x][y + 1] == 0) {
-							currentMap.layout[x][y + 1] = 8;
-							currentMap.charLayout[x][y + 1] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							y++;
-						}
-						break;
-					}
-					if (currentMap.charLayout[x + 1][y] == 9 || currentMap.charLayout[x - 1][y] == 9
-							|| currentMap.charLayout[x][y + 1] == 9 || currentMap.charLayout[x][y - 1] == 9) {
-						moblin[enemigo].attack(link);
-
-					}
-				}
-			}
-		}
-
-	}
-
 	private static void gameover() {
 		// Auto-generated method stub
-		currentMap.layout[x][y] = 45;
+		currentMap.layout[link.x][link.y] = 45;
 		timer.cancel();
 		try {
 			Thread.sleep(700);
@@ -389,10 +341,10 @@ public class CodigoNES {
 			boolean doesChangeMap = changeMap(mueve[0], mueve[1]);
 			
 			if(!doesChangeMap) {
-			boolean semueve = dale(direccion, x, y, mueve[0], mueve[1]);
+			boolean semueve = dale(direccion, link.x, link.y, mueve[0], mueve[1]);
 				if (semueve == true) {
-					x += mueve[0];
-					y += mueve[1];
+					link.x += mueve[0];
+					link.y += mueve[1];
 				}
 			}else {
 				changeLinkToNextMap(direccion);
@@ -423,20 +375,20 @@ public class CodigoNES {
 		// Auto-generated method stub
 
 		if (direccion == linkW) {
-			currentMap.layout[x][y] = 13;
-			boton(x - 1, y);
+			currentMap.layout[link.x][link.y] = 13;
+			boton(link.x - 1, link.y);
 		}
 		if (direccion == linkA) {
-			currentMap.layout[x][y] = 14;
-			boton(x, y - 1);
+			currentMap.layout[link.x][link.y] = 14;
+			boton(link.x, link.y - 1);
 		}
 		if (direccion == linkS) {
-			currentMap.layout[x][y] = 15;
-			boton(x + 1, y);
+			currentMap.layout[link.x][link.y] = 15;
+			boton(link.x + 1, link.y);
 		}
 		if (direccion == linkD) {
-			currentMap.layout[x][y] = 16;
-			boton(x, y + 1);
+			currentMap.layout[link.x][link.y] = 16;
+			boton(link.x, link.y + 1);
 		}
 	}
 
@@ -481,27 +433,29 @@ public class CodigoNES {
 	private static void attack(int x3, int y3) {
 		// Auto-generated method stub
 		
-		int enemigo = currentMap.charLayout[x3][y3];
+		int enemigo = currentMap.charLayout[x3][y3]-1;
 		System.out.println(enemigo);
 		int espadazo = getDirfromLastDir();
-		currentMap.layout[x][y] = espadazo;
+		currentMap.layout[link.x][link.y] = espadazo;
 		view();
 	
 		
-		if (enemigo != 0) {
-		link.attack(moblin[enemigo]);
-		boolean etamuerto = moblin[enemigo].die();
+		if (enemigo != -1) {
+		link.attack(moblin.get(enemigo));
+		boolean etamuerto = moblin.get(enemigo).die();
 
 		if (link.weapon.dura == 0) {
 			link.weapon.repair();
 			link.giveWeapon(fists);
 			changeSprites();
-			currentMap.layout[x][y]=lastDir;
+			currentMap.layout[link.x][link.y]=lastDir;
 		}
 
 		if (etamuerto) {
 			currentMap.charLayout[x3][y3] = 0;
 			currentMap.layout[x3][y3] = 21;
+			moblin.remove(enemigo);
+			currentMap.nEnemy--;
 		}
 		}
 		
@@ -511,7 +465,7 @@ public class CodigoNES {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		currentMap.layout[x][y] = lastDir;
+		currentMap.layout[link.x][link.y] = lastDir;
 		view();
 		
 	}
@@ -581,8 +535,8 @@ public class CodigoNES {
 
 	private static void Item(Weapon weapon) {
 		// Auto-generated method stub
-		currentMap.layout[x][y] = 19;
-		currentMap.layout[x - 1][y] = weapon.range;
+		currentMap.layout[link.x][link.y] = 19;
+		currentMap.layout[link.x - 1][link.y] = weapon.range;
 		t.dibuixa(currentMap.layout);
 		t.setImgbackground(currentMap.BgImg);
 
@@ -592,10 +546,10 @@ public class CodigoNES {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		currentMap.layout[x - 1][y] = 0;
+		currentMap.layout[link.x - 1][link.y] = 0;
 		link.giveWeapon(weapon);
 		changeSprites();
-		currentMap.layout[x][y] = lastDir;
+		currentMap.layout[link.x][link.y] = lastDir;
 	}
 
 	private static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
@@ -693,13 +647,13 @@ public class CodigoNES {
 		boolean doesChangeMap = false;
 
 		for (Entry<Integer, String> entry : currentMap.exits.entrySet()) {
-			if (currentMap.exitLayout[x][y] == entry.getKey()) {
+			if (currentMap.exitLayout[link.x][link.y] == entry.getKey()) {
 				doesChangeMap = true;
 			}
 		}
 
 		try {
-			getExitCasilla(x + movX, y + movY);
+			getExitCasilla(link.x + movX, link.y + movY);
 
 			return false;
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -707,15 +661,23 @@ public class CodigoNES {
 		}
 
 		if (doesChangeMap) {
-			currentMap.layout[x][y] = 0;
+			currentMap.layout[link.x][link.y] = 0;
+			
+			currentMap.resetEnemies();
 
-			String next = currentMap.getNextMap(currentMap.exitLayout[x][y]);
+			String next = currentMap.getNextMap(currentMap.exitLayout[link.x][link.y]);
 
 			System.out.println(next);
 
 			mapeado[indexOfMap(currentMap.name)].BgImg = currentMap.BgImg;
 
 			currentMap = mapeado[indexOfMap(next)];
+			
+			moblin.clear();
+			
+			for (int i = 1; i <= currentMap.nEnemy; i++) {
+				moblin.add(new Enemy(moblinRange, moblinSprites, 3, fists, i));
+			}
 			
 			timercito = 0;
 		}
@@ -739,20 +701,20 @@ public class CodigoNES {
 
 	private static void changeLinkToNextMap(int direction) {
 
-		if (x == 0) {
-			x = MAP_HEIGHT - 1;
-		} else if (x == MAP_HEIGHT - 1) {
-			x = 0;
+		if (link.x == 0) {
+			link.x = MAP_HEIGHT - 1;
+		} else if (link.x == MAP_HEIGHT - 1) {
+			link.x = 0;
 		}
 
-		if (y == 0) {
-			y = MAP_WIDTH - 1;
-		} else if (y == MAP_WIDTH - 1) {
-			y = 0;
+		if (link.y == 0) {
+			link.y = MAP_WIDTH - 1;
+		} else if (link.y == MAP_WIDTH - 1) {
+			link.y = 0;
 		}
 
-		currentMap.layout[x][y] = direction;
-		currentMap.charLayout[x][y] = 9;
+		currentMap.layout[link.x][link.y] = direction;
+		currentMap.charLayout[link.x][link.y] = 9;
 	}
 
 	private static int[][] duplicateMatrix(int[][] matrix) {
@@ -764,5 +726,15 @@ public class CodigoNES {
 			}
 		}
 		return ret;
+	}
+	
+	public static MapChunk CurrentMap()
+	{
+		return currentMap;
+	}
+	
+	public static void setCurrentMap(MapChunk newMap)
+	{
+		currentMap = newMap;
 	}
 }

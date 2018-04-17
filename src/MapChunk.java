@@ -8,6 +8,7 @@ public class MapChunk
 	public int[][] exitLayout;
 	public String BgImg = new String();
 	public int[][] charLayout;
+	public int nEnemy;
 	
 	public MapChunk()
 	{
@@ -15,7 +16,7 @@ public class MapChunk
 		layout = new int[11][16];
 	}
 	
-	public MapChunk(String newName, int[][] newLayout, HashMap<Integer, String> newExits, int[][] newExitLayout, int[][] newCharLayout, String newBgImg)
+	public MapChunk(String newName, int[][] newLayout, HashMap<Integer, String> newExits, int[][] newExitLayout, int[][] newCharLayout, String newBgImg, int newEnemy)
 	{
 		name = newName;
 		layout = newLayout;
@@ -23,8 +24,25 @@ public class MapChunk
 		exits.putAll(newExits);
 		charLayout = newCharLayout;
 		BgImg = newBgImg;
+		nEnemy = newEnemy;
+	}
+	
+	public void resetEnemies()
+	{
+		MapChunk currentMap = CodigoNES.CurrentMap();
+		
+		for(int i = 0; i < currentMap.layout.length; i++) {
+			for(int j = 0; j < currentMap.layout[i].length; j++) {
+				if (currentMap.layout[i][j] == 8) {
+					currentMap.layout[i][j] = 0;
+					currentMap.charLayout[i][j] = 0;
+				}
+			}
+		}
+		
 		
 	}
+	
 	
 	public String getNextMap(int key)
 	{

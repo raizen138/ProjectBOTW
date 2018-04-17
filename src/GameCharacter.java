@@ -36,7 +36,7 @@ public abstract class GameCharacter
 		}
 	}
 	
-	public abstract boolean attack(GameCharacter target);
+	public abstract void attack(GameCharacter target);
 	
 	public abstract boolean move();
 

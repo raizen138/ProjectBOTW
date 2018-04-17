@@ -9,7 +9,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.2.1
+ * @version Alpha 0.2.2
  *
  */
 public class CodigoNES {
@@ -264,16 +264,13 @@ public class CodigoNES {
 
 	protected static void play() {
 		// Auto-generated method stub
-		System.out.println(lastDir);
-		System.out.println(lastAction);
-		System.out.println(lastDirChar);
-		moving();
+		link.move();
 		if(lastDirChar == 'j') {
-			attack(link.x+mueve[2],link.y+mueve[3]);
+			link.attack(link.x+mueve[2],link.y+mueve[3]);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'k') {
-			interact(lastDir);
+			link.interact(lastDir);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'l') {
@@ -331,29 +328,7 @@ public class CodigoNES {
 		}*/
 	}
 
-	private static void moving() {
-		boolean seMueveSeñores = input();
-		
-		if(seMueveSeñores) {
-			
-			int direccion = getDirection();
-			lastDir = direccion;
-			boolean doesChangeMap = changeMap(mueve[0], mueve[1]);
-			
-			if(!doesChangeMap) {
-			boolean semueve = dale(direccion, link.x, link.y, mueve[0], mueve[1]);
-				if (semueve == true) {
-					link.x += mueve[0];
-					link.y += mueve[1];
-				}
-			}else {
-				changeLinkToNextMap(direccion);
-			}
-		} 	
-		
-	}
-
-	private static int getDirection() {
+	static int getDirection() {
 		// Auto-generated method stub
 		if (lastDirChar == 'w') {
 			return linkW;
@@ -371,28 +346,7 @@ public class CodigoNES {
 
 	}
 
-	private static void interact(int direccion) {
-		// Auto-generated method stub
-
-		if (direccion == linkW) {
-			currentMap.layout[link.x][link.y] = 13;
-			boton(link.x - 1, link.y);
-		}
-		if (direccion == linkA) {
-			currentMap.layout[link.x][link.y] = 14;
-			boton(link.x, link.y - 1);
-		}
-		if (direccion == linkS) {
-			currentMap.layout[link.x][link.y] = 15;
-			boton(link.x + 1, link.y);
-		}
-		if (direccion == linkD) {
-			currentMap.layout[link.x][link.y] = 16;
-			boton(link.x, link.y + 1);
-		}
-	}
-
-	private static void boton(int x2, int y2) {
+	static void boton(int x2, int y2) {
 		// Auto-generated method stub
 		if (currentMap.layout[x2][y2] == 5) {
 			for (int i = 0; i < MAP_HEIGHT; i++) {
@@ -430,47 +384,7 @@ public class CodigoNES {
 			}
 	}
 
-	private static void attack(int x3, int y3) {
-		// Auto-generated method stub
-		
-		int enemigo = currentMap.charLayout[x3][y3]-1;
-		System.out.println(enemigo);
-		int espadazo = getDirfromLastDir();
-		currentMap.layout[link.x][link.y] = espadazo;
-		view();
-	
-		
-		if (enemigo != -1) {
-		link.attack(moblin.get(enemigo));
-		boolean etamuerto = moblin.get(enemigo).die();
-
-		if (link.weapon.dura == 0) {
-			link.weapon.repair();
-			link.giveWeapon(fists);
-			changeSprites();
-			currentMap.layout[link.x][link.y]=lastDir;
-		}
-
-		if (etamuerto) {
-			currentMap.charLayout[x3][y3] = 0;
-			currentMap.layout[x3][y3] = 21;
-			moblin.remove(enemigo);
-			currentMap.nEnemy--;
-		}
-		}
-		
-		try {
-			Thread.sleep(700);
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
-		currentMap.layout[link.x][link.y] = lastDir;
-		view();
-		
-	}
-
-	private static int getDirfromLastDir() {
+	static int getDirfromLastDir() {
 		
 		if (lastDir == linkW) {
 			return linkWe;
@@ -488,7 +402,7 @@ public class CodigoNES {
 		
 	}
 
-	private static void changeSprites() {
+	static void changeSprites() {
 		// Auto-generated method stub
 
 		if (link.weapon == fists) {
@@ -552,7 +466,7 @@ public class CodigoNES {
 		currentMap.layout[link.x][link.y] = lastDir;
 	}
 
-	private static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
+	static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
 
 		if (!isCollision(currentRow + movx, currentCol + movy)) {
 			currentMap.layout[currentRow][currentCol] = 0;
@@ -567,7 +481,7 @@ public class CodigoNES {
 
 	}
 
-	private static boolean input() {
+	static boolean input() {
 		char in = f.getActualChar();
 		switch (in) {
 		case 'w':
@@ -642,7 +556,7 @@ public class CodigoNES {
 		return ret;
 	}
 
-	private static boolean changeMap(int movX, int movY) //
+	static boolean changeMap(int movX, int movY) //
 	{
 		boolean doesChangeMap = false;
 
@@ -699,7 +613,7 @@ public class CodigoNES {
 		return -1;
 	}
 
-	private static void changeLinkToNextMap(int direction) {
+	static void changeLinkToNextMap(int direction) {
 
 		if (link.x == 0) {
 			link.x = MAP_HEIGHT - 1;

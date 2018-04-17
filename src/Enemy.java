@@ -23,9 +23,9 @@ public class Enemy extends GameCharacter{
 	}
 
 	@Override
-	public boolean attack(GameCharacter target) {
+	public void attack(GameCharacter target) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 	
 	

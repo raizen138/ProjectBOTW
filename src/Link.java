@@ -8,8 +8,49 @@ public class Link extends GameCharacter{
 		
 	}
 	
+	public void attack(int x3, int y3)
+	{
+		MapChunk currentMap = CodigoNES.CurrentMap();
+		int enemigo = currentMap.charLayout[x3][y3]-1;
+		int espadazo = CodigoNES.getDirfromLastDir();
+		currentMap.layout[x][y] = espadazo;
+		CodigoNES.view();
+	
+		
+		if (enemigo != -1) {
+		attack2(CodigoNES.moblin.get(enemigo));
+		boolean etamuerto = CodigoNES.moblin.get(enemigo).die();
 
-	public boolean attack(GameCharacter target)
+		if (this.weapon.dura == 0) {
+			this.weapon.repair();
+			this.giveWeapon(CodigoNES.fists);
+			CodigoNES.changeSprites();
+			currentMap.layout[x][y]=CodigoNES.lastDir;
+		}
+
+		if (etamuerto) {
+			currentMap.charLayout[x3][y3] = 0;
+			currentMap.layout[x3][y3] = 21;
+			CodigoNES.moblin.remove(enemigo);
+			currentMap.nEnemy--;
+		}
+		}
+		
+		try {
+			Thread.sleep(700);
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		currentMap.layout[x][y] = CodigoNES.lastDir;
+		CodigoNES.view();
+		
+	}
+	
+	
+	
+
+	public boolean attack2(GameCharacter target)
 	{
 		if(estado == 1) {
 			return false;
@@ -36,10 +77,29 @@ public class Link extends GameCharacter{
 	}
 
 
-	@Override
 	public boolean move() {
 		// TODO Auto-generated method stub
-		return false;
+		boolean seMueveSeñores = CodigoNES.input();
+		
+		if(seMueveSeñores) {
+			
+			int direccion = CodigoNES.getDirection();
+			CodigoNES.lastDir = direccion;
+			boolean doesChangeMap = CodigoNES.changeMap(CodigoNES.mueve[0], CodigoNES.mueve[1]);
+			
+			if(!doesChangeMap) {
+			boolean semueve = CodigoNES.dale(direccion, x, y, CodigoNES.mueve[0], CodigoNES.mueve[1]);
+				if (semueve == true) {
+					x += CodigoNES.mueve[0];
+					y += CodigoNES.mueve[1];
+				}
+			}else {
+				CodigoNES.changeLinkToNextMap(direccion);
+			}
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 
@@ -48,6 +108,34 @@ public class Link extends GameCharacter{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void attack(GameCharacter target) {
+		// TODO Auto-generated method stub
 	
+	}
+
+	public void interact(int direccion) {
+		MapChunk currentMap = CodigoNES.CurrentMap();
+		if (direccion == CodigoNES.linkW) {
+			currentMap.layout[x][y] = 13;
+			CodigoNES.boton(x - 1, y);
+		}
+		if (direccion == CodigoNES.linkA) {
+			currentMap.layout[x][y] = 14;
+			CodigoNES.boton(x, y - 1);
+		}
+		if (direccion == CodigoNES.linkS) {
+			currentMap.layout[x][y] = 15;
+			CodigoNES.boton(x + 1, y);
+		}
+		if (direccion == CodigoNES.linkD) {
+			currentMap.layout[x][y] = 16;
+			CodigoNES.boton(x, y + 1);
+		}
+		
+	}
+
+
 	
 }

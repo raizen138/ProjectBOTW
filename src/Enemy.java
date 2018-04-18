@@ -17,35 +17,23 @@ public class Enemy extends GameCharacter{
 			x = (int) (Math.random() * 9)+1;
 			y = (int) (Math.random() * 14)+1;
 			if (currentMap.layout[x][y] == 0) {
+				currentMap.layout[x][y] = 8;
 				break;
 			}
 		}
 	}
 
 	@Override
-	public void attack(GameCharacter target) {
-		// TODO Auto-generated method stub
-		
+	public void attack(GameCharacter target) 
+	{		
+		target.health -= this.weapon.attack;
 	}
-	
-	
-
 		
-					
-					/*
-					if (currentMap.charLayout[x + 1][y] == 9 || currentMap.charLayout[x - 1][y] == 9
-							|| currentMap.charLayout[x][y + 1] == 9 || currentMap.charLayout[x][y - 1] == 9) {
-						moblin[enemigo].attack(link);
-
-					}
-					*/
-	
-	
 	public void Update()
 	{
 		if(linkInRange())
 		{
-			//Atack
+			attack(CodigoNES.link);
 		}
 		else
 		{
@@ -59,9 +47,9 @@ public class Enemy extends GameCharacter{
 		if(currentMap.charLayout[x+1][y] == 9) {
 			return true;
 		}
-		/*if(currentMap.charLayout[x-1][y] == 9) {
+		if(currentMap.charLayout[x-1][y] == 9) {
 			return true;
-		}*/
+		}
 		if(currentMap.charLayout[x][y+1] == 9) {
 			return true;
 		}

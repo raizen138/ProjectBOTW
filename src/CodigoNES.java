@@ -9,7 +9,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.2.2
+ * @version Alpha 0.2.3
  *
  */
 public class CodigoNES {
@@ -120,7 +120,7 @@ public class CodigoNES {
 			"spr/linkSE.png", "spr/linkDE.png", "spr/linkWeE.png", "spr/linkAeE.png", "spr/linkSeE.png",
 			"spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png",
 			"spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png" };
-	static Link link = new Link(linkRange, linkSprites, 3, fists);
+	public static Link link = new Link(linkRange, linkSprites, 3, fists);
 	static ArrayList<GameCharacter> moblin = new ArrayList<GameCharacter>();
 
 	public static void main(String[] args) {
@@ -310,9 +310,11 @@ public class CodigoNES {
 	private static void gameover() {
 		// Auto-generated method stub
 		currentMap.layout[link.x][link.y] = 45;
+		view();
+		
 		timer.cancel();
 		try {
-			Thread.sleep(700);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
@@ -404,7 +406,14 @@ public class CodigoNES {
 
 	static void changeSprites() {
 		// Auto-generated method stub
-
+		
+		if(link.estado == 1)
+		{
+			linkS = 26;
+			linkW = 24;
+			linkA = 25;
+			linkD = 27;
+		}else {
 		if (link.weapon == fists) {
 			if (lastDir == linkS) lastDir=1;
 			if (lastDir == linkW) lastDir=4;
@@ -445,6 +454,7 @@ public class CodigoNES {
 			linkSe = 43;
 			linkDe = 44;
 		}
+		}
 	}
 
 	private static void Item(Weapon weapon) {
@@ -469,13 +479,19 @@ public class CodigoNES {
 	static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
 
 		if (!isCollision(currentRow + movx, currentCol + movy)) {
+			if(Water.getInstance().isWater(currentRow + movx, currentCol + movy)) {
+				link.estado = 1;
+			}else {
+				link.estado = 0;
+			}
+			changeSprites();
 			currentMap.layout[currentRow][currentCol] = 0;
-			currentMap.layout[currentRow + movx][currentCol + movy] = character;
+			currentMap.layout[currentRow + movx][currentCol + movy] = getDirection();
 			currentMap.charLayout[currentRow][currentCol] = 0;
 			currentMap.charLayout[currentRow + movx][currentCol + movy] = 9;
 			return true;
 		} else {
-			currentMap.layout[currentRow][currentCol] = character;
+			currentMap.layout[currentRow][currentCol] = getDirection();
 			return false;
 		}
 

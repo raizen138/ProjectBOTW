@@ -9,9 +9,9 @@ public class Chest extends Interactable
 	
 	Item drop;
 	
-	public Chest(String newName, int[] newRange, Item newDrop) 
+	public Chest(String[] newSprites, int[] newRange, Item newDrop) 
 	{
-		super(newName, newRange);	
+		super(newSprites, newRange);	
 		drop = newDrop;
 	}
 

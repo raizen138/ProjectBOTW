@@ -119,23 +119,31 @@ public class Link extends GameCharacter{
 
 	public void interact(int direccion, Interactable inter) {
 		MapChunk currentMap = CodigoNES.CurrentMap();
+		
 		if (direccion == CodigoNES.linkW) {
 			currentMap.layout[x][y] = 13;
+			if(inter != null) {
 			inter.interactWith(x - 1, y);
+			}
 		}
 		if (direccion == CodigoNES.linkA) {
 			currentMap.layout[x][y] = 14;
+			if(inter != null) {
 			inter.interactWith(x, y - 1);
+			}
 		}
 		if (direccion == CodigoNES.linkS) {
 			currentMap.layout[x][y] = 15;
+			if(inter != null) {
 			inter.interactWith(x + 1, y);
+			}
 		}
 		if (direccion == CodigoNES.linkD) {
 			currentMap.layout[x][y] = 16;
+			if(inter != null) {
 			inter.interactWith(x, y + 1);
 		}
-		
+		}
 	}
 
 	public boolean giveItem(Item drop) 

@@ -7,9 +7,9 @@ public class Npc extends Interactable{
 	int estado = 0;
 	Item drop;
 	
-	public Npc(String newName, int[] newRange, Item newDrop) 
+	public Npc(String[] newSprites, int[] newRange, Item newDrop) 
 	{
-		super(newName, newRange);
+		super(newSprites, newRange);
 		drop = newDrop;	
 	}
 

@@ -2,41 +2,33 @@ package interactables;
 
 public abstract class Interactable 
 {
-	String name = new String();
-	int[] range = {5, 17, 18};
-	int type;
+	int[] range;
+	String[] sprites;
 	
 	
-	public Interactable(String newName, int[] newRange)
+	public Interactable(String[] newSprites, int[] newRange)
 	{
-		name = newName;
-		type = getType();
+		sprites = newSprites;
+		range = newRange;
+
 	}
 	
 	
 	
-	private int getType() {
-		if (name.equals("cofre"))
-		{
-			return 18;
-		}
-		if(name.equals("npc"))
-		{
-			return 17;
-		}
-		if(name.equals("boton"))
-		{
-			return 5;
-		}
-		return 0;
-	}
+
 
 
 
 	public abstract void interactWith(int x2, int y2);
 
 
-
+	public void writeRange(String[] spriteArray)
+	{
+		for(int i = 0; i < range.length; i++)
+		{
+			spriteArray[range[i]] = sprites[i];
+		}
+	}
 
 	
 	

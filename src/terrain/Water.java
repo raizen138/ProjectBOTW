@@ -1,3 +1,5 @@
+package terrain;
+import main.CodigoNES;
 
 public class Water {
 

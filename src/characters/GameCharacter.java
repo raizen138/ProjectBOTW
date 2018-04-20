@@ -1,13 +1,15 @@
+package characters;
+import items.Weapon;
 
 public abstract class GameCharacter 
 {
 	int[] range;
 	String[] sprites;
 	int health;
-	Weapon weapon;
-	int estado;
-	int x;
-	int y;
+	public Weapon weapon;
+	public int estado;
+	public int x;
+	public int y;
 	
 	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon)
 	{

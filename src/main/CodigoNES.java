@@ -1,6 +1,18 @@
+package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import characters.Enemy;
+import characters.GameCharacter;
+import characters.Link;
+import graphics.Finestra;
+import graphics.Taulell;
+import interactables.Interactable;
+import items.Weapon;
+import terrain.MapChunk;
+import terrain.Water;
+
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,7 +21,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.2.3
+ * @version Alpha 0.3.0
  *
  */
 public class CodigoNES {
@@ -18,24 +30,23 @@ public class CodigoNES {
 	static final int MAP_HEIGHT = 11;
 	static final int MAP_WIDTH = 16;
 	static final int nmaps = 6;
-	static int linkS = 1;
-	static int linkW = 4;
-	static int linkD = 3;
-	static int linkA = 2;
+	public static int linkS = 1;
+	public static int linkW = 4;
+	public static int linkD = 3;
+	public static int linkA = 2;
 	static int linkWe = 13;
 	static int linkAe = 14;
 	static int linkSe = 15;
 	static int linkDe = 16;
-	static int[] mueve = new int[4];
+	public static int[] mueve = new int[4];
 	static char lastDirChar;
-	static int lastDir;
+	public static int lastDir;
 	static char lastAction;
 
 	static Taulell t = new Taulell();
 	static Finestra f = new Finestra(t);
 	static Scanner sc = new Scanner(System.in);
 
-	static boolean flagSword = false;
 	static int timercito = 0;
 	
 	static int[] moblinRange = { 8 };
@@ -111,7 +122,7 @@ public class CodigoNES {
 
 	static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
 	static Weapon lance = new Weapon(21, "spr/lanza.png", 5, 2);
-	static Weapon fists = new Weapon(0, "", 99, 1);
+	public static Weapon fists = new Weapon(0, "", 99, 1);
 	static int[] linkRange = { 1, 2, 3, 4, 13, 14, 15, 16, 19, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
 			39, 40, 41, 42, 43, 44, 45 };
 	static String[] linkSprites = { "spr/linkSP.png", "spr/linkAP.png", "spr/linkDP.png", "spr/linkWP.png",
@@ -121,14 +132,16 @@ public class CodigoNES {
 			"spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png",
 			"spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png" };
 	public static Link link = new Link(linkRange, linkSprites, 3, fists);
-	static ArrayList<GameCharacter> moblin = new ArrayList<GameCharacter>();
+	public static ArrayList<GameCharacter> moblin = new ArrayList<GameCharacter>();
 
 	public static void main(String[] args) {
 		//
 		/*
-		 * Leyenda: 11x16 0 = Suelo 1 = Link S 2 = Link A 3 = Link D 4 = Link W 5 =
-		 * Botones (activables) 6 = Obstaculo 7 = Entrada 8 = Moblin 9 = Entrada 2 10 =
-		 * Entrada 3 11 = Entrada 4 12 = Entrada cerrada 13 = Link W Espada 14 = Link A
+		 * Leyenda: 11x16 
+		 * 0 = Suelo 1 = Link S 2 = Link A 3 = Link D 4 = Link W 
+		 * 5 = Botones (activables) 6 = Obstaculo 7 = Entrada 
+		 * 8 = Moblin 9 = Entrada 2 10 = Entrada 3 11 = Entrada 4 
+		 * 12 = Entrada cerrada 13 = Link W Espada 14 = Link A
 		 * Espada 15 = Link S Espada 16 = Link D Espada 17 = Personajes (hablar) 18 =
 		 * Cofres (interactuar) 19 = Link Tesoro 20 = Espada 21 = Lanza 22 = Agua 23 =
 		 * Agua CambioMapa 24 = Link W nadar 25 = Link A nadar 26 = Link S nadar 27 =
@@ -160,12 +173,16 @@ public class CodigoNES {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 		int[][] mapaChar = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 		int[][] mapa4Char = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -174,17 +191,89 @@ public class CodigoNES {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+		
+		Interactable[][] mapa0I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+		
+		Interactable[][] mapa1I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+		
+		Interactable[][] mapa2I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+		
+		Interactable[][] mapa3I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+		
+		Interactable[][] mapa4I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+		
+		Interactable[][] mapa5I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 
 		mapacamara = new MapChunk("Camara Resurrección", mapa0, mapa0Exits, duplicateMatrix(mapa0), mapa0Char,
-				"map/mapa0cerrado.jpg", 0);
+				"map/mapa0cerrado.jpg", 0, mapa0I);
 		mapasantuario = new MapChunk("Santuario Resurrección", mapa1, mapa1Exits, duplicateMatrix(mapa1), mapaChar,
-				"map/mapa1cerrado.jpg", 0);
-		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg", 0);
+				"map/mapa1cerrado.jpg", 0, mapa1I);
+		mapagreat = new MapChunk("Great Plateau", mapa2, mapa2Exits, duplicateMatrix(mapa2), mapaChar, "map/mapa2.jpg", 0, mapa2I);
 		mapaviejo = new MapChunk("El mapa del viejo", mapa3, mapa3Exits, duplicateMatrix(mapa3), mapaChar,
-				"map/mapa3.jpg", 0);
+				"map/mapa3.jpg", 0, mapa3I);
 		mapaespada = new MapChunk("Primeros Moblins", mapa4, mapa4Exits, duplicateMatrix(mapa4), mapa4Char,
-				"map/mapa4.jpg", 2);
-		mapaagua = new MapChunk("La Espada", mapa5, mapa5Exits, duplicateMatrix(mapa5), mapaChar, "map/mapa5.jpg", 0);
+				"map/mapa4.jpg", 2, mapa4I);
+		mapaagua = new MapChunk("La Espada", mapa5, mapa5Exits, duplicateMatrix(mapa5), mapaChar, "map/mapa5.jpg", 0, mapa5I);
 
 		mapeado[0] = mapacamara;
 		mapeado[1] = mapasantuario;
@@ -256,7 +345,7 @@ public class CodigoNES {
 		
 	}
 
-	protected static void view() {
+	public static void view() {
 		// Auto-generated method stub
 		t.dibuixa(currentMap.layout);
 		t.setImgbackground(currentMap.BgImg);
@@ -270,7 +359,7 @@ public class CodigoNES {
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'k') {
-			link.interact(lastDir);
+			link.interact(lastDir, currentMap.interLayout[link.x+mueve[2]][link.y+mueve[3]]);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'l') {
@@ -330,7 +419,7 @@ public class CodigoNES {
 		}*/
 	}
 
-	static int getDirection() {
+	public static int getDirection() {
 		// Auto-generated method stub
 		if (lastDirChar == 'w') {
 			return linkW;
@@ -348,45 +437,7 @@ public class CodigoNES {
 
 	}
 
-	static void boton(int x2, int y2) {
-		// Auto-generated method stub
-		if (currentMap.layout[x2][y2] == 5) {
-			for (int i = 0; i < MAP_HEIGHT; i++) {
-				for (int j = 0; j < MAP_WIDTH; j++) {
-					if (currentMap.exitLayout[i][j] == 12) {
-						currentMap.exitLayout[i][j] = 7;
-						currentMap.layout[i][j] = 7;
-					}
-				}
-			}
-			currentMap.changeBgImg();
-		} else if (currentMap.layout[x2][y2] == 17) {
-			if (currentMap.name.equals("El mapa del viejo")) {
-				if (flagSword == false) {
-					if (!link.hasWeapon()) {
-						Item(sword);
-						System.out.println("It's dangerous to go alone, take this!");
-						flagSword = true;
-					}
-				} else {
-					System.out.println("Zelda is waiting for you in the Temple of Time, go save her!");
-				}
-			}
-		} else if (currentMap.layout[x2][y2] == 18) {
-			if (currentMap.name.equals("Santuario Resurrección")) {
-				System.out.println("This chest was already opened, it has nothing inside...");
-			}
-			if (currentMap.name.equals("La Espada")) {
-				if (!link.hasWeapon()) {
-					currentMap.changeBgImg();
-					Item(sword);
-					currentMap.layout[x2][y2] = 0;
-				}
-			}
-			}
-	}
-
-	static int getDirfromLastDir() {
+	public static int getDirfromLastDir() {
 		
 		if (lastDir == linkW) {
 			return linkWe;
@@ -404,7 +455,7 @@ public class CodigoNES {
 		
 	}
 
-	static void changeSprites() {
+	public static void changeSprites() {
 		// Auto-generated method stub
 		
 		if(link.estado == 1)
@@ -457,26 +508,7 @@ public class CodigoNES {
 		}
 	}
 
-	private static void Item(Weapon weapon) {
-		// Auto-generated method stub
-		currentMap.layout[link.x][link.y] = 19;
-		currentMap.layout[link.x - 1][link.y] = weapon.range;
-		t.dibuixa(currentMap.layout);
-		t.setImgbackground(currentMap.BgImg);
-
-		try {
-			Thread.sleep(700);
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
-		currentMap.layout[link.x - 1][link.y] = 0;
-		link.giveWeapon(weapon);
-		changeSprites();
-		currentMap.layout[link.x][link.y] = lastDir;
-	}
-
-	static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
+	public static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
 
 		if (!isCollision(currentRow + movx, currentCol + movy)) {
 			if(Water.getInstance().isWater(currentRow + movx, currentCol + movy)) {
@@ -497,7 +529,7 @@ public class CodigoNES {
 
 	}
 
-	static boolean input() {
+	public static boolean input() {
 		char in = f.getActualChar();
 		switch (in) {
 		case 'w':
@@ -572,7 +604,7 @@ public class CodigoNES {
 		return ret;
 	}
 
-	static boolean changeMap(int movX, int movY) //
+	public static boolean changeMap(int movX, int movY) //
 	{
 		boolean doesChangeMap = false;
 
@@ -629,7 +661,7 @@ public class CodigoNES {
 		return -1;
 	}
 
-	static void changeLinkToNextMap(int direction) {
+	public static void changeLinkToNextMap(int direction) {
 
 		if (link.x == 0) {
 			link.x = MAP_HEIGHT - 1;
@@ -663,8 +695,9 @@ public class CodigoNES {
 		return currentMap;
 	}
 	
-	public static void setCurrentMap(MapChunk newMap)
+	public static Link getLink()
 	{
-		currentMap = newMap;
+		return link;
+		
 	}
 }

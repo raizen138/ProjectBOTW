@@ -1,4 +1,8 @@
+package main;
 import java.util.HashMap;
+
+import graphics.Finestra;
+import graphics.Taulell;
 
 public class Tests 
 {

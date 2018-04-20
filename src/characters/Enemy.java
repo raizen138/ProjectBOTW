@@ -1,3 +1,7 @@
+package characters;
+import items.Weapon;
+import main.CodigoNES;
+import terrain.MapChunk;
 
 public class Enemy extends GameCharacter{
 	

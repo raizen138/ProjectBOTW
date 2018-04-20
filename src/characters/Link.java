@@ -1,3 +1,9 @@
+package characters;
+import interactables.Interactable;
+import items.Item;
+import items.Weapon;
+import main.CodigoNES;
+import terrain.MapChunk;
 
 public class Link extends GameCharacter{
 
@@ -47,9 +53,6 @@ public class Link extends GameCharacter{
 		
 	}
 	
-	
-	
-
 	public boolean attack2(GameCharacter target)
 	{
 		if(estado == 1) {
@@ -78,7 +81,6 @@ public class Link extends GameCharacter{
 
 
 	public boolean move() {
-		// TODO Auto-generated method stub
 		boolean seMueveSeñores = CodigoNES.input();
 		
 		if(seMueveSeñores) {
@@ -105,37 +107,76 @@ public class Link extends GameCharacter{
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void attack(GameCharacter target) {
-		// TODO Auto-generated method stub
+		
 	
 	}
 
-	public void interact(int direccion) {
+	public void interact(int direccion, Interactable inter) {
 		MapChunk currentMap = CodigoNES.CurrentMap();
 		if (direccion == CodigoNES.linkW) {
 			currentMap.layout[x][y] = 13;
-			CodigoNES.boton(x - 1, y);
+			inter.interactWith(x - 1, y);
 		}
 		if (direccion == CodigoNES.linkA) {
 			currentMap.layout[x][y] = 14;
-			CodigoNES.boton(x, y - 1);
+			inter.interactWith(x, y - 1);
 		}
 		if (direccion == CodigoNES.linkS) {
 			currentMap.layout[x][y] = 15;
-			CodigoNES.boton(x + 1, y);
+			inter.interactWith(x + 1, y);
 		}
 		if (direccion == CodigoNES.linkD) {
 			currentMap.layout[x][y] = 16;
-			CodigoNES.boton(x, y + 1);
+			inter.interactWith(x, y + 1);
 		}
 		
 	}
 
+	public boolean giveItem(Item drop) 
+	{
+	Link link = CodigoNES.getLink();
+	if(drop instanceof Weapon)
+	{
+		if(link.weapon == CodigoNES.fists)
+		{
+			Item(drop);
+			return true;	
+		}else {
+			return false;
+		}
+	}
+		return false;
+	}
 
+	public void Item(Item drop)
+	{
+		MapChunk currentMap = CodigoNES.CurrentMap();
+		
+		int anterior = currentMap.layout[x - 1][y];
+		currentMap.layout[x][y] = 19;
+		currentMap.layout[x - 1][y] = drop.range;
+		CodigoNES.view();
+		try {
+			Thread.sleep(700);
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		currentMap.layout[x - 1][y] = anterior;
+		
+		if(drop instanceof Weapon)
+		{	
+		giveWeapon((Weapon) drop);
+		CodigoNES.changeSprites();
+		}
+		
+		currentMap.layout[x][y] = CodigoNES.lastDir;
+	}
 	
 }

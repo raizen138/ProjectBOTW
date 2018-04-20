@@ -1,4 +1,8 @@
+package terrain;
 import java.util.HashMap;
+
+import interactables.Interactable;
+import main.CodigoNES;
 
 public class MapChunk 
 {
@@ -9,6 +13,7 @@ public class MapChunk
 	public String BgImg = new String();
 	public int[][] charLayout;
 	public int nEnemy;
+	public Interactable[][] interLayout;
 	
 	public MapChunk()
 	{
@@ -16,7 +21,7 @@ public class MapChunk
 		layout = new int[11][16];
 	}
 	
-	public MapChunk(String newName, int[][] newLayout, HashMap<Integer, String> newExits, int[][] newExitLayout, int[][] newCharLayout, String newBgImg, int newEnemy)
+	public MapChunk(String newName, int[][] newLayout, HashMap<Integer, String> newExits, int[][] newExitLayout, int[][] newCharLayout, String newBgImg, int newEnemy, Interactable[][] newILayout)
 	{
 		name = newName;
 		layout = newLayout;
@@ -25,6 +30,7 @@ public class MapChunk
 		charLayout = newCharLayout;
 		BgImg = newBgImg;
 		nEnemy = newEnemy;
+		interLayout = newILayout;
 	}
 	
 	public void resetEnemies()

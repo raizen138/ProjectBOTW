@@ -29,6 +29,7 @@ public class Button extends Interactable
 				for(int j = 0; j<CodigoNES.MAP_WIDTH; j++) {
 					if(currentMap.layout[i][j] == 12) {
 						currentMap.layout[i][j] = 7;
+						currentMap.exitLayout[i][j] = 7;
 					}
 				}
 			}

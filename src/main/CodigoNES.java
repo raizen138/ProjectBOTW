@@ -11,6 +11,8 @@ import graphics.Taulell;
 import interactables.Button;
 import interactables.Chest;
 import interactables.Interactable;
+import interactables.Npc;
+import interactables.Overworld;
 import items.Weapon;
 import terrain.MapChunk;
 import terrain.Water;
@@ -23,7 +25,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.3.1
+ * @version Alpha 0.3.2
  *
  */
 public class CodigoNES {
@@ -87,15 +89,22 @@ public class CodigoNES {
 							 { 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, 
 							 { 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 },
 							 { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6 }, 
-							 { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6 },
-							 { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6 }, 
-							 { 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6 }, };
-	static int[][] mapa3 = { { 6, 6, 6, 6, 6, 9, 9, 9, 9, 9, 6, 6, 6, 6, 6, 6 },
-			{ 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 }, { 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, { 6, 6, 6, 17, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, { 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 },
-			{ 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, { 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6 }, };
+							 { 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6 },
+							 { 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6 }, 
+							 { 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6 }, };
+	
+	static int[][] mapa3 = { { 6, 6, 6, 6, 6, 6, 9, 9, 9, 9, 6, 6, 6, 6, 6, 6 },
+							 { 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 }, 
+							 { 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, 
+							 { 6, 6, 6, 17, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, 
+							 { 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 }, 
+							 { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 },
+							 { 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, 
+							 { 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6 }, };
+	
 	static int[][] mapa4 = { { 6, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9, 9, 9, 9, 6, 6 },
 			{ 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 },
 			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
@@ -111,7 +120,7 @@ public class CodigoNES {
 			{ 6, 6, 6, 6, 6, 22, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6 },
 			{ 6, 6, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23 },
 			{ 6, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6, 22, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 6, 6, 0, 18, 0, 6, 6, 22, 22, 22, 23 },
+			{ 6, 22, 22, 22, 22, 6, 6, 0, 49, 0, 6, 6, 22, 22, 22, 23 },
 			{ 6, 22, 22, 22, 22, 6, 6, 0, 0, 0, 6, 6, 22, 22, 22, 23 },
 			{ 6, 22, 22, 22, 22, 6, 6, 6, 0, 6, 6, 6, 22, 22, 22, 23 },
 			{ 6, 22, 22, 22, 22, 22, 6, 6, 0, 6, 6, 22, 22, 22, 22, 23 },
@@ -125,7 +134,7 @@ public class CodigoNES {
 	static HashMap<Integer, String> mapa4Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa5Exits = new HashMap<>();
 
-	static int[] colliders = { 5, 6, 8, 12, 17, 18, 46, 47 };
+	static int[] colliders = { 5, 6, 8, 12, 17, 18, 46, 47, 48, 49};
 
 	public static MapChunk[] mapeado = new MapChunk[nmaps]; //
 	static MapChunk mapacamara;
@@ -167,7 +176,7 @@ public class CodigoNES {
 		 * Link D nadar 28 = Agua CambioMapa2 29 = EspadaW // 33 = I 30 = EspadaA // 34
 		 * = I 31 = EspadaS // 35 = I 32 = EspadaD // 36 = I 37 = LanzaW // 41 = I 38 =
 		 * LanzaA // 42 = I 39 = LanzaS // 43 = I 40 = LanzaD // 44 = I 45 = link Death
-		 * 46 = Cofre abierto
+		 * 46 = Cofre abierto 47 = Boton abiero 48 = Viejo2 49 = Espada OW
 		 */
 
 		mapa0Exits.put(7, "Santuario Resurrección");
@@ -216,9 +225,16 @@ public class CodigoNES {
 		String[] chestsprites = {"spr/cofreC.png", "spr/cofreA.png"};
 		int[] botonrange = {5, 47};
 		String[] botonsprites = {"spr/botonD.png", "spr/botonA.png"};
+		int[] viejorange = {17, 48};
+		String[] viejosprites = {"spr/viejo1.png", "spr/viejo2.png"};
+		int[] espadarange = {49};
+		String[] espadasprites = {"spr/espadaOW.png"};
+		
 		
 		Chest chest1 = new Chest(chestsprites, chestrange, null);
 		Button boton1 = new Button(botonsprites, botonrange);
+		Npc viejo1 = new Npc(viejosprites, viejorange, sword, "viejo1");
+		Overworld espada1 = new Overworld(espadasprites, espadarange ,sword);
 		
 		Interactable[][] mapa0I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -260,7 +276,7 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, viejo1, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -285,7 +301,7 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, espada1, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -333,13 +349,14 @@ public class CodigoNES {
 		lance.writeRange(allSprites);
 		chest1.writeRange(allSprites);
 		boton1.writeRange(allSprites);
+		espada1.writeRange(allSprites);
 		allSprites[8] = moblinSprites[0];
 		// 5 10 15 20 25 30 35 40 45
 		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1,
 				1, 1.375, 1.5, 1.5, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125,
-				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1 };
+				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1, 1.375, 1.375 };
 		double[] freedrawx = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.1875, 1,
-				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1 };
+				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1, 1, 1.3125 };
 		/// 5 10 15 20 25 30 35 40 45
 		t.setFreedrawx(freedrawx);
 		t.setFreedrawy(freedrawy);

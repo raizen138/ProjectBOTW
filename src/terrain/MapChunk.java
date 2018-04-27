@@ -62,7 +62,7 @@ public class MapChunk
 	}
 	
 	public void changeBgImg() {
-		// TODO Auto-generated method stub
+		
 		if (name.equals("Camara Resurrección")) {
 			BgImg = "map/mapa0abierto.jpg";
 		}

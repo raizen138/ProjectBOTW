@@ -32,14 +32,14 @@ public class Hud {
 		{
 			if(health > 1)
 			{
-				layout[0][hudpos] = 51;
+				layout[1][hudpos] = 51;
 				health -= 2;
 				heartsdisplayed++;
 				hudpos++;
 			}
 			else if(health == 1)
 			{
-				layout[0][hudpos] = 52;
+				layout[1][hudpos] = 52;
 				health -= 1;
 				heartsdisplayed++;
 				hudpos++;
@@ -49,7 +49,7 @@ public class Hud {
 		}
 		for(int i = 0; i < maxHearths - heartsdisplayed; i++)
 		{
-			layout[0][hudpos] = 53;
+			layout[1][hudpos] = 53;
 			hudpos++;
 		}
 		

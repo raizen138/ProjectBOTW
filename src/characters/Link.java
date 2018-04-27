@@ -9,10 +9,19 @@ public class Link extends GameCharacter{
 
 	int hearts;
 	
-	public Link(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon) {
+	public Link
+			(
+				int[] newRange,
+				String[] allSprites,
+				int newHealth,
+				Weapon newWeapon
+			)
+	{
 		super(newRange, allSprites, newHealth, newWeapon);
+		
 		x = 6;
 		y = 5;
+		
 		hearts = newHealth*2;
 		
 	}
@@ -20,15 +29,20 @@ public class Link extends GameCharacter{
 	public void attack(int x3, int y3)
 	{
 		MapChunk currentMap = CodigoNES.CurrentMap();
+		
 		int enemigo = currentMap.charLayout[x3][y3]-1;
+		
 		int espadazo = CodigoNES.getDirfromLastDir();
+		
 		currentMap.layout()[x][y] = espadazo;
+		
 		CodigoNES.view();
 	
 		
-		if (enemigo != -1) {
-		attack2(CodigoNES.moblin.get(enemigo));
-		boolean etamuerto = CodigoNES.moblin.get(enemigo).die();
+		if (enemigo != -1)
+		{
+			attack2(CodigoNES.moblin.get(enemigo));
+			boolean etamuerto = CodigoNES.moblin.get(enemigo).die();
 
 		if (this.weapon.dura == 0) {
 			this.weapon.repair();

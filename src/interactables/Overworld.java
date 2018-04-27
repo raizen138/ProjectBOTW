@@ -21,7 +21,7 @@ public class Overworld extends Interactable {
 		Link link = CodigoNES.getLink();
 		
 		if(link.giveItem(drop)) {
-			currentMap.layout[x2][y2] = 0;	
+			currentMap.layout()[x2][y2] = 0;	
 			currentMap.interLayout[x2][y2] = null;	
 		}
 		

@@ -243,12 +243,16 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa1I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -270,9 +274,13 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa3I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -294,9 +302,13 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa5I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -326,11 +338,16 @@ public class CodigoNES {
 		mapeado[4] = mapaespada;
 		mapeado[5] = mapaagua;
 
+		
+		int[][] interfaced = { {50}, {0}, {0}, };
+		
+		
 		t.setActimatges(true);
 		t.setActimgbackground(true);
 		f.setTitle("TLOZ Breath of the Past");
 		t.setPAD(0);
 		t.setActfreedraw(true);
+		
 
 
 		for (int i = 1; i < currentMap.nEnemy; i++) {
@@ -349,24 +366,30 @@ public class CodigoNES {
 		lance.writeRange(allSprites);
 		chest1.writeRange(allSprites);
 		boton1.writeRange(allSprites);
+		viejo1.writeRange(allSprites);
 		espada1.writeRange(allSprites);
+		allSprites[50] = "spr/interface.png";
+		allSprites[51] = "spr/health.png";
+		allSprites[52] = "spr/health2.png";
+		allSprites[53] = "spr/health3.png";
 		allSprites[8] = moblinSprites[0];
 		// 5 10 15 20 25 30 35 40 45
-		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1,
+		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1.1875,
 				1, 1.375, 1.5, 1.5, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125,
-				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1, 1.375, 1.375 };
+				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1, 1.375, 1.375, 1, 1, 1, 1 };
 		double[] freedrawx = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.1875, 1,
-				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1, 1, 1.3125 };
+				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1, 1, 1.3125, 1, 1 ,1 ,1 };
 		/// 5 10 15 20 25 30 35 40 45
 		t.setFreedrawx(freedrawx);
 		t.setFreedrawy(freedrawy);
 		t.setImatges(allSprites);
+		t.overdibuixa(interfaced);
 
 		/*for (int i = 0; i < allSprites.length; i++) {
 			System.out.println(i+" "+allSprites[i]);
 		}*/
 		
-		currentMap.layout = mapacamara.layout;
+		currentMap.setLayout(mapacamara.layout());
 		currentMap.name = mapacamara.name;
 		currentMap.exits.putAll(mapacamara.exits);
 		currentMap.exitLayout = mapacamara.exitLayout;
@@ -374,7 +397,7 @@ public class CodigoNES {
 		currentMap.BgImg = mapacamara.BgImg;
 		currentMap.interLayout = mapacamara.interLayout;
 
-		t.dibuixa(currentMap.layout);
+		t.dibuixa(currentMap.layout());
 		t.setImgbackground(currentMap.BgImg);
 
 		System.out.println("Wake up... Link...");
@@ -400,7 +423,7 @@ public class CodigoNES {
 
 	public static void view() {
 		// Auto-generated method stub
-		t.dibuixa(currentMap.layout);
+		t.dibuixa(currentMap.layout());
 		t.setImgbackground(currentMap.BgImg);
 	}
 
@@ -451,7 +474,7 @@ public class CodigoNES {
 
 	private static void gameover() {
 		// Auto-generated method stub
-		currentMap.layout[link.x][link.y] = 45;
+		currentMap.layout()[link.x][link.y] = 45;
 		view();
 		
 		timer.cancel();
@@ -463,7 +486,7 @@ public class CodigoNES {
 		}
 		t.setActimatges(false);
 		t.setImgbackground("map/gameover.jpg");
-		t.dibuixa(currentMap.layout);
+		t.dibuixa(currentMap.layout());
 		/*try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -570,13 +593,13 @@ public class CodigoNES {
 				link.estado = 0;
 			}
 			changeSprites();
-			currentMap.layout[currentRow][currentCol] = 0;
-			currentMap.layout[currentRow + movx][currentCol + movy] = getDirection();
+			currentMap.layout()[currentRow][currentCol] = 0;
+			currentMap.layout()[currentRow + movx][currentCol + movy] = getDirection();
 			currentMap.charLayout[currentRow][currentCol] = 0;
 			currentMap.charLayout[currentRow + movx][currentCol + movy] = 9;
 			return true;
 		} else {
-			currentMap.layout[currentRow][currentCol] = getDirection();
+			currentMap.layout()[currentRow][currentCol] = getDirection();
 			return false;
 		}
 
@@ -649,7 +672,7 @@ public class CodigoNES {
 		boolean ret = false;
 
 		for (int i = 0; i < colliders.length; i++) {
-			if (currentMap.layout[row][col] == colliders[i]) {
+			if (currentMap.layout()[row][col] == colliders[i]) {
 				ret = true;
 			}
 		}
@@ -676,7 +699,7 @@ public class CodigoNES {
 		}
 
 		if (doesChangeMap) {
-			currentMap.layout[link.x][link.y] = 0;
+			currentMap.layout()[link.x][link.y] = 0;
 			
 			currentMap.resetEnemies();
 
@@ -728,7 +751,7 @@ public class CodigoNES {
 			link.y = 0;
 		}
 
-		currentMap.layout[link.x][link.y] = direction;
+		currentMap.layout()[link.x][link.y] = direction;
 		currentMap.charLayout[link.x][link.y] = 9;
 	}
 

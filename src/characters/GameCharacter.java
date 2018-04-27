@@ -11,7 +11,13 @@ public abstract class GameCharacter
 	public int x;
 	public int y;
 	
-	public GameCharacter(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon)
+	public GameCharacter
+			(
+				int[] newRange,
+				String[] allSprites,
+				int newHealth,
+				Weapon newWeapon
+			)
 	{
 		range = newRange;
 		sprites = allSprites;
@@ -31,14 +37,18 @@ public abstract class GameCharacter
 	
 	public boolean die()
 	{
-		if(health == 0) {
+		if(health == 0)
+		{
 			return true;
-		}else {
-		return false; 
+		}
+		else
+		{
+			return false; 
 		}
 	}
 	
 	public abstract void attack(GameCharacter target);
+	
 	
 	public abstract boolean move();
 

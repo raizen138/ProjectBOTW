@@ -21,10 +21,10 @@ public class Chest extends Interactable
 		MapChunk currentMap = CodigoNES.CurrentMap();
 		Link link = CodigoNES.getLink();
 		
-		if (currentMap.layout()[x2][y2] == range[0]) 
+		if (currentMap.layout[x2][y2] == range[0]) 
 		{
 		if(link.giveItem(drop)) {
-			currentMap.layout()[x2][y2] = range[1];	
+			currentMap.layout[x2][y2] = range[1];	
 		}
 		
 		

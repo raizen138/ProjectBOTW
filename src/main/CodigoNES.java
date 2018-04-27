@@ -7,6 +7,7 @@ import characters.Enemy;
 import characters.GameCharacter;
 import characters.Link;
 import graphics.Finestra;
+import graphics.Hud;
 import graphics.Taulell;
 import interactables.Button;
 import interactables.Chest;
@@ -25,7 +26,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.3.2
+ * @version Alpha 0.4.0
  *
  */
 public class CodigoNES {
@@ -143,6 +144,8 @@ public class CodigoNES {
 	static MapChunk mapaviejo;
 	static MapChunk mapaespada;
 	static MapChunk mapaagua;
+	
+	static int[][][] lehud = new int[2][][];
 
 	static MapChunk currentMap = new MapChunk();
 
@@ -243,16 +246,12 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa1I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -274,13 +273,9 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa3I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -302,13 +297,9 @@ public class CodigoNES {
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa5I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -340,6 +331,13 @@ public class CodigoNES {
 
 		
 		int[][] interfaced = { {50}, {0}, {0}, };
+		int[][] hearts = new int[24][36];
+		
+		hearts = Hud.instance().getLayout(link.getHealth()*2, hearts);
+		
+		
+		lehud[0] = interfaced;
+		lehud[1] = hearts;
 		
 		
 		t.setActimatges(true);
@@ -383,13 +381,15 @@ public class CodigoNES {
 		t.setFreedrawx(freedrawx);
 		t.setFreedrawy(freedrawy);
 		t.setImatges(allSprites);
-		t.overdibuixa(interfaced);
+		
+		t.overdibuixa(lehud);
+
 
 		/*for (int i = 0; i < allSprites.length; i++) {
 			System.out.println(i+" "+allSprites[i]);
 		}*/
 		
-		currentMap.setLayout(mapacamara.layout());
+		currentMap.layout = mapacamara.layout;
 		currentMap.name = mapacamara.name;
 		currentMap.exits.putAll(mapacamara.exits);
 		currentMap.exitLayout = mapacamara.exitLayout;
@@ -397,7 +397,7 @@ public class CodigoNES {
 		currentMap.BgImg = mapacamara.BgImg;
 		currentMap.interLayout = mapacamara.interLayout;
 
-		t.dibuixa(currentMap.layout());
+		t.dibuixa(currentMap.layout);
 		t.setImgbackground(currentMap.BgImg);
 
 		System.out.println("Wake up... Link...");
@@ -423,8 +423,10 @@ public class CodigoNES {
 
 	public static void view() {
 		// Auto-generated method stub
-		t.dibuixa(currentMap.layout());
+		t.dibuixa(currentMap.layout);
 		t.setImgbackground(currentMap.BgImg);
+		lehud[1] = Hud.instance().getLayout(link.getHealth()*2, lehud[1]);
+		t.overdibuixa(lehud);
 	}
 
 	protected static void play() {
@@ -474,7 +476,7 @@ public class CodigoNES {
 
 	private static void gameover() {
 		// Auto-generated method stub
-		currentMap.layout()[link.x][link.y] = 45;
+		currentMap.layout[link.x][link.y] = 45;
 		view();
 		
 		timer.cancel();
@@ -485,8 +487,9 @@ public class CodigoNES {
 			e.printStackTrace();
 		}
 		t.setActimatges(false);
+		t.borraOverdraw();
 		t.setImgbackground("map/gameover.jpg");
-		t.dibuixa(currentMap.layout());
+		t.dibuixa(currentMap.layout);
 		/*try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -593,13 +596,13 @@ public class CodigoNES {
 				link.estado = 0;
 			}
 			changeSprites();
-			currentMap.layout()[currentRow][currentCol] = 0;
-			currentMap.layout()[currentRow + movx][currentCol + movy] = getDirection();
+			currentMap.layout[currentRow][currentCol] = 0;
+			currentMap.layout[currentRow + movx][currentCol + movy] = getDirection();
 			currentMap.charLayout[currentRow][currentCol] = 0;
 			currentMap.charLayout[currentRow + movx][currentCol + movy] = 9;
 			return true;
 		} else {
-			currentMap.layout()[currentRow][currentCol] = getDirection();
+			currentMap.layout[currentRow][currentCol] = getDirection();
 			return false;
 		}
 
@@ -672,7 +675,7 @@ public class CodigoNES {
 		boolean ret = false;
 
 		for (int i = 0; i < colliders.length; i++) {
-			if (currentMap.layout()[row][col] == colliders[i]) {
+			if (currentMap.layout[row][col] == colliders[i]) {
 				ret = true;
 			}
 		}
@@ -699,7 +702,7 @@ public class CodigoNES {
 		}
 
 		if (doesChangeMap) {
-			currentMap.layout()[link.x][link.y] = 0;
+			currentMap.layout[link.x][link.y] = 0;
 			
 			currentMap.resetEnemies();
 
@@ -751,7 +754,7 @@ public class CodigoNES {
 			link.y = 0;
 		}
 
-		currentMap.layout()[link.x][link.y] = direction;
+		currentMap.layout[link.x][link.y] = direction;
 		currentMap.charLayout[link.x][link.y] = 9;
 	}
 

@@ -1,6 +1,5 @@
 package graphics;
 
-import main.CodigoNES;
 
 public class Hud {
 
@@ -19,27 +18,25 @@ public class Hud {
 	 * 
 	 */
 	
-	public int[][] getLayout(int health)
+	public int[][] getLayout(int health, int[][] map)
 	{
-		int hudpos = 11;
+		int hudpos = 27;
 		
-		int[][] layout = new int[2][CodigoNES.MAP_WIDTH];
 		
 		int heartsdisplayed = 0;
-		int maxdisp; 
 		
 		while(health > 0)
 		{
 			if(health > 1)
 			{
-				layout[1][hudpos] = 51;
+				map[2][hudpos] = 51;
 				health -= 2;
 				heartsdisplayed++;
 				hudpos++;
 			}
 			else if(health == 1)
 			{
-				layout[1][hudpos] = 52;
+				map[2][hudpos] = 52;
 				health -= 1;
 				heartsdisplayed++;
 				hudpos++;
@@ -49,11 +46,11 @@ public class Hud {
 		}
 		for(int i = 0; i < maxHearths - heartsdisplayed; i++)
 		{
-			layout[1][hudpos] = 53;
+			map[2][hudpos] = 53;
 			hudpos++;
 		}
 		
-		return layout;
+		return map;
 	}
 	
 	public static Hud instance()

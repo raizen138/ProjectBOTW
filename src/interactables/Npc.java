@@ -25,7 +25,7 @@ public class Npc extends Interactable{
 		Link link = CodigoNES.getLink();
 		if(estado == 0)
 		{
-			currentMap.layout()[x2][y2] = range[1];
+			currentMap.layout[x2][y2] = range[1];
 			CodigoNES.view();
 			if(drop != null)
 			{

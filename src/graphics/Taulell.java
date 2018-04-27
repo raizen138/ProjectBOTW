@@ -26,6 +26,7 @@ public class Taulell extends JPanel {
 	private int COLS = -1;
 	private int[][] a;
 	private int[][] overdraw;
+	private int[][][] overdrawa;
 	private boolean init = false;
 	private boolean change = false;
 	private boolean actcolors = false; // els act activen cada funcio. si estan
@@ -39,6 +40,7 @@ public class Taulell extends JPanel {
 	private double[] freedrawx;
 	private double[] freedrawy;
 	private boolean actoverdraw = false;
+	private boolean actoverdrawa = false;
 	private boolean actimgbackground = false;
 	private String imgbackground;
 	private int[] colors = { 0x0000FF, 0x00FF00, 0xFFFF00, 0xFF0000, 0xFF00FF, 0x00FFFF, 0x000000, 0xFFFFFF, 0xFF8000,
@@ -142,9 +144,26 @@ public class Taulell extends JPanel {
 					}
 				}
 			}
+			if (actoverdrawa) {
+				for(int k =0;k<overdrawa.length;k++) {
+					initoverSquares(overdrawa[k].length, overdrawa[k][0].length);
+					for (int i = 0; i < overdrawa[k].length; i++) {
+						for (int j = 0; j < overdrawa[k][0].length; j++) {
+							oversquares[i][j].overdraw(g2, overdrawa[k][i][j], imatges);
+						}
+					}	
+				}
+				
+			}
 
 		}
 
+	}
+	
+	
+	public void borraOverdraw() {
+		int[][][] borra = {{{0}}};
+		this.overdibuixa(borra);
 	}
 
 	// Aquest mètode inicialitza la matriu per primera vegada creant els
@@ -179,14 +198,7 @@ public class Taulell extends JPanel {
 		oversquares = new SquareRx2[fil][col];
 		int w = getWidth();
 		int h = getHeight();
-		double xInc = (double) (w - 2 * PAD) / col; // aixo es geometria eh.
-													// Basicament diu que cada
-													// cuadrat tindrà de
-													// mida horitzontal la
-													// amplada total - els dos
-													// marges, dividit
-													// per el nombre de quadrats
-													// que tens.
+		double xInc = (double) (w - 2 * PAD) / col;
 		double yInc = (double) (h - 2 * PAD) / fil;
 		for (int i = 0; i < fil; i++) {
 			double y = PAD + i * yInc;
@@ -241,6 +253,13 @@ public class Taulell extends JPanel {
 	public void overdibuixa(int[][] a) {
 		this.actoverdraw = true;
 		this.overdraw = a;
+		repaint();
+
+	};
+	
+	public void overdibuixa(int[][][] a) {
+		this.actoverdrawa = true;
+		this.overdrawa = a;
 		repaint();
 
 	};
@@ -490,7 +509,6 @@ class SquareRx2 {
 	}
 
 	public void overdraw(Graphics2D g2, int value, String[] overimatges) {
-		// TODO Auto-generated method stub
 		if (!(overimatges[value].equals(""))) { // Entrendrem que un string buit
 												// significa que no vols imatge
 												// en aquella
@@ -506,6 +524,9 @@ class SquareRx2 {
 			}
 		}
 	}
+	
+	
+	
 
 	/**
 	 * Aquest metode dibuixa cada cuadrat individualment.

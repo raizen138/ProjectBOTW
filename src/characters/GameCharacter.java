@@ -52,8 +52,5 @@ public abstract class GameCharacter
 	
 	public abstract void Update();
 	
-	public int health()
-	{
-		return health;
-	}
+
 }

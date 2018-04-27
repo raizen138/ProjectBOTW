@@ -81,6 +81,10 @@ public class Link extends GameCharacter{
 			return true;
 		}
 	}
+	
+	public int hearts() {
+		return hearts;
+	}
 
 
 	public boolean move() {

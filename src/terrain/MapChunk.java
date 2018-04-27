@@ -86,7 +86,7 @@ public class MapChunk
 			}
 		}
 		
-		int[][] hudLayout = Hud.instance().getLayout(CodigoNES.link.health());
+		int[][] hudLayout = Hud.instance().getLayout(CodigoNES.link.hearts());
 		
 		for(int i = 0; i < 2; i++)
 		{

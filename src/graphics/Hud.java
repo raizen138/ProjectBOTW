@@ -45,11 +45,12 @@ public class Hud {
 				hudpos++;
 			}
 			
-			for(int i = 0; i < maxHearths - heartsdisplayed; i++)
-			{
-				layout[0][hudpos] = 53;
-				hudpos++;
-			}
+			
+		}
+		for(int i = 0; i < maxHearths - heartsdisplayed; i++)
+		{
+			layout[0][hudpos] = 53;
+			hudpos++;
 		}
 		
 		return layout;

@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.4.0
+ * @version Alpha 0.4.1
  *
  */
 public class CodigoNES {
@@ -107,27 +107,28 @@ public class CodigoNES {
 							 { 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6 }, };
 	
 	static int[][] mapa4 = { { 6, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9, 9, 9, 9, 6, 6 },
-			{ 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
-			{ 6, 28, 28, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6 }, };
+							 { 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6 }, { 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 23, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6 },
+							 { 6, 28, 28, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6 }, };
+	
 	static int[][] mapa5 = { { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
-			{ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
-			{ 6, 6, 6, 6, 6, 22, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6 },
-			{ 6, 6, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6, 22, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 6, 6, 0, 49, 0, 6, 6, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 6, 6, 0, 0, 0, 6, 6, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 6, 6, 6, 0, 6, 6, 6, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 22, 6, 6, 0, 6, 6, 22, 22, 22, 22, 23 },
-			{ 6, 22, 22, 22, 22, 22, 22, 6, 0, 6, 22, 22, 22, 22, 22, 23 },
-			{ 6, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 6 }, };
-
+							 { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+							 { 6, 6, 6, 6, 6, 22, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6 },
+							 { 6, 6, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 22, 6, 6, 6, 6, 6, 22, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 6, 6, 0, 49, 0, 6, 6, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 6, 6, 0, 0, 0, 6, 6, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 6, 6, 6, 0, 6, 6, 6, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 22, 6, 6, 0, 6, 6, 22, 22, 22, 22, 23 },
+							 { 6, 22, 22, 22, 22, 22, 22, 6, 0, 6, 22, 22, 22, 22, 22, 23 },
+							 { 6, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 6 }, };
+	
 	static HashMap<Integer, String> mapa0Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa1Exits = new HashMap<>();
 	static HashMap<Integer, String> mapa2Exits = new HashMap<>();
@@ -197,12 +198,16 @@ public class CodigoNES {
 		mapa5Exits.put(23, "Primeros Moblins");
 
 		int[][] mapa0Char = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 		int[][] mapaChar = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
@@ -217,12 +222,16 @@ public class CodigoNES {
 							 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 		int[][] mapa4Char = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+							  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 		
 		int[] chestrange = {18, 46};
 		String[] chestsprites = {"spr/cofreC.png", "spr/cofreA.png"};
@@ -240,76 +249,76 @@ public class CodigoNES {
 		Overworld espada1 = new Overworld(espadasprites, espadarange ,sword);
 		
 		Interactable[][] mapa0I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa1I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, chest1, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, chest1, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, chest1, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, chest1, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, boton1, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa2I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa3I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, viejo1, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, viejo1, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa4I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 		
 		Interactable[][] mapa5I = { { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, espada1, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, espada1, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+									{ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}, };
 
 		mapacamara = new MapChunk("Camara Resurrección", mapa0, mapa0Exits, duplicateMatrix(mapa0), mapa0Char,
 				"map/mapa0cerrado.jpg", 0, mapa0I);
@@ -409,7 +418,7 @@ public class CodigoNES {
 				public void run() {
 					play();
 					view();
-					if (link.die()) {
+					if (link.isDead()) {
 						gameover();
 					}
 					timercito++;

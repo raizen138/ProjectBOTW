@@ -40,7 +40,7 @@ public class Link extends GameCharacter{
 		if (enemigo != -1)
 		{
 			attack2(CodigoNES.moblin.get(enemigo));
-			boolean etamuerto = CodigoNES.moblin.get(enemigo).die();
+			boolean etamuerto = CodigoNES.moblin.get(enemigo).isDead();
 
 		if (this.weapon.dura == 0) {
 			this.weapon.repair();

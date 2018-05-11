@@ -1,4 +1,5 @@
 package characters;
+
 import items.Weapon;
 
 public abstract class GameCharacter 
@@ -35,7 +36,7 @@ public abstract class GameCharacter
 	}
 	
 	
-	public boolean die()
+	public boolean isDead()
 	{
 		if(health == 0)
 		{

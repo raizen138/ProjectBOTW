@@ -2,6 +2,7 @@ package terrain;
 
 import characters.GameCharacter;
 import interactables.Interactable;
+import utilities.Sound;
 
 public class GameMap 
 {
@@ -9,6 +10,8 @@ public class GameMap
 	public static final int WIDTH = 16;
 	
 	private String name = new String();
+	
+	private Sound music;
 	
 	
 	
@@ -42,6 +45,11 @@ public class GameMap
 		this.BgImg = path;
 	}
 	
+	public void setMusic(Sound sound)
+	{
+		this.music = sound;
+	}	
+	
 	public void setInteractable(Interactable inter, int row, int col)
 	{
 		interLayout[row][col] = inter;
@@ -67,4 +75,15 @@ public class GameMap
 	{
 		return tileLayout[row][col];
 	}
+	
+	public String getBgImg()
+	{
+		return BgImg;
+	}
+	
+	public Sound getMusic()
+	{
+		return music;
+	}
+	
 }

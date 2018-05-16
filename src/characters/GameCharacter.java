@@ -9,8 +9,8 @@ public abstract class GameCharacter
 	int health;
 	public Weapon weapon;
 	public int estado;
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 	
 	public GameCharacter
 			(
@@ -63,5 +63,23 @@ public abstract class GameCharacter
 	
 	public abstract void Update();
 	
-
+	public int x()
+	{
+		return x;
+	}
+	
+	public int y()
+	{
+		return y;
+	}
+	
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	
+	public void setY(int y)
+	{
+		this.y = y;
+	}
 }

@@ -29,12 +29,12 @@ public class Enemy extends GameCharacter{
 		
 		while(true)
 		{
-			x = (int) (Math.random() * 9)+1;
-			y = (int) (Math.random() * 14)+1;
+			setX((int) (Math.random() * 9)+1);
+			setY((int) (Math.random() * 14)+1);
 			
-			if (currentMap.layout[x][y] == 0)
+			if (currentMap.layout[x()][y()] == 0)
 			{
-				currentMap.layout[x][y] = 8;
+				currentMap.layout[x()][y()] = 8;
 				break;
 			}
 		}
@@ -61,21 +61,21 @@ public class Enemy extends GameCharacter{
 	private boolean linkInRange()
 	{
 		MapChunk currentMap = CodigoNES.CurrentMap();
-		if(currentMap.charLayout[x+1][y] == 9)
+		if(currentMap.charLayout[x()+1][y()] == 9)
 		{
 			return true;
 		}
 		
-		if(currentMap.charLayout[x-1][y] == 9)
+		if(currentMap.charLayout[x()-1][y()] == 9)
 		{
 			return true;
 		}
-		if(currentMap.charLayout[x][y+1] == 9)
+		if(currentMap.charLayout[x()][y()+1] == 9)
 		{
 			return true;
 		}
 		
-		if(currentMap.charLayout[x][y-1] == 9)
+		if(currentMap.charLayout[x()][y()-1] == 9)
 		{
 			return true;
 		}
@@ -96,52 +96,52 @@ public class Enemy extends GameCharacter{
 				switch (opt)
 				{
 					case 0:
-						if (currentMap.exitLayout[x - 1][y] == 0 && currentMap.layout[x - 1][y] == 0)
+						if (currentMap.exitLayout[x() - 1][y()] == 0 && currentMap.layout[x() - 1][y()] == 0)
 						{
-							currentMap.layout[x - 1][y] = 8;
-							currentMap.charLayout[x - 1][y] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							x--;
+							currentMap.layout[x() - 1][y()] = 8;
+							currentMap.charLayout[x() - 1][y()] = enemigo;
+							currentMap.layout[x()][y()] = 0;
+							currentMap.charLayout[x()][y()] = 0;
+							setX(x()-1);
 							return true;
 						}
 						
 						return false;
 					
 					case 1:
-						if (currentMap.exitLayout[x][y - 1] == 0 && currentMap.layout[x][y - 1] == 0)
+						if (currentMap.exitLayout[x()][y() - 1] == 0 && currentMap.layout[x()][y() - 1] == 0)
 						{
-							currentMap.layout[x][y - 1] = 8;
-							currentMap.charLayout[x][y - 1] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							y--;
+							currentMap.layout[x()][y() - 1] = 8;
+							currentMap.charLayout[x()][y() - 1] = enemigo;
+							currentMap.layout[x()][y()] = 0;
+							currentMap.charLayout[x()][y()] = 0;
+							setY(y()-1);
 							return true;
 						}
 						
 						return false;
 						
 					case 2:
-						if (currentMap.exitLayout[x + 1][y] == 0 && currentMap.layout[x + 1][y] == 0)
+						if (currentMap.exitLayout[x() + 1][y()] == 0 && currentMap.layout[x() + 1][y()] == 0)
 						{
-							currentMap.layout[x + 1][y] = 8;
-							currentMap.charLayout[x + 1][y] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							x++;
+							currentMap.layout[x() + 1][y()] = 8;
+							currentMap.charLayout[x() + 1][y()] = enemigo;
+							currentMap.layout[x()][y()] = 0;
+							currentMap.charLayout[x()][y()] = 0;
+							setX(x()+1);
 							return true;
 						}
 						
 						return false;
 						
 					case 3:
-						if (currentMap.exitLayout[x][y + 1] == 0 && currentMap.layout[x][y + 1] == 0)
+						if (currentMap.exitLayout[x()][y() + 1] == 0 && currentMap.layout[x()][y() + 1] == 0)
 						{
-							currentMap.layout[x][y + 1] = 8;
-							currentMap.charLayout[x][y + 1] = enemigo;
-							currentMap.layout[x][y] = 0;
-							currentMap.charLayout[x][y] = 0;
-							y++;
+							currentMap.layout[x()][y() + 1] = 8;
+							currentMap.charLayout[x()][y() + 1] = enemigo;
+							currentMap.layout[x()][y()] = 0;
+							currentMap.charLayout[x()][y()] = 0;
+							setY(y()+1);
 							return true;
 						}
 						

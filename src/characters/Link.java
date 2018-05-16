@@ -18,8 +18,8 @@ public class Link extends GameCharacter{
 	{
 		super(newRange, allSprites, newHealth, newWeapon);
 		
-		x = 6;
-		y = 5;
+		setX(6);
+		setY(5);
 		
 		
 	}
@@ -32,7 +32,7 @@ public class Link extends GameCharacter{
 		
 		int espadazo = CodigoNES.getDirfromLastDir();
 		
-		currentMap.layout[x][y] = espadazo;
+		currentMap.layout[x()][y()] = espadazo;
 		
 		CodigoNES.view();
 	
@@ -46,7 +46,7 @@ public class Link extends GameCharacter{
 			this.weapon.repair();
 			this.giveWeapon(CodigoNES.fists);
 			CodigoNES.changeSprites();
-			currentMap.layout[x][y]=CodigoNES.lastDir;
+			currentMap.layout[x()][y()]=CodigoNES.lastDir;
 		}
 
 		if (etamuerto) {
@@ -63,7 +63,7 @@ public class Link extends GameCharacter{
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		currentMap.layout[x][y] = CodigoNES.lastDir;
+		currentMap.layout[x()][y()] = CodigoNES.lastDir;
 		CodigoNES.view();
 		
 	}
@@ -108,10 +108,10 @@ public class Link extends GameCharacter{
 			boolean doesChangeMap = CodigoNES.changeMap(CodigoNES.mueve[0], CodigoNES.mueve[1]);
 			
 			if(!doesChangeMap) {
-			boolean semueve = CodigoNES.dale(direccion, x, y, CodigoNES.mueve[0], CodigoNES.mueve[1]);
+			boolean semueve = CodigoNES.dale(direccion, x(), y(), CodigoNES.mueve[0], CodigoNES.mueve[1]);
 				if (semueve == true) {
-					x += CodigoNES.mueve[0];
-					y += CodigoNES.mueve[1];
+					setX(x() + CodigoNES.mueve[0]);
+					setY(y() + CodigoNES.mueve[1]);
 				}
 			}else {
 				CodigoNES.changeLinkToNextMap(direccion);
@@ -139,27 +139,27 @@ public class Link extends GameCharacter{
 		MapChunk currentMap = CodigoNES.CurrentMap();
 		
 		if (direccion == CodigoNES.linkW) {
-			currentMap.layout[x][y] = 13;
+			currentMap.layout[x()][y()] = 13;
 			if(inter != null) {
-			inter.interactWith(x - 1, y);
+			inter.interactWith(x() - 1, y());
 			}
 		}
 		if (direccion == CodigoNES.linkA) {
-			currentMap.layout[x][y] = 14;
+			currentMap.layout[x()][y()] = 14;
 			if(inter != null) {
-			inter.interactWith(x, y - 1);
+			inter.interactWith(x(), y() - 1);
 			}
 		}
 		if (direccion == CodigoNES.linkS) {
-			currentMap.layout[x][y] = 15;
+			currentMap.layout[x()][y()] = 15;
 			if(inter != null) {
-			inter.interactWith(x + 1, y);
+			inter.interactWith(x() + 1, y());
 			}
 		}
 		if (direccion == CodigoNES.linkD) {
-			currentMap.layout[x][y] = 16;
+			currentMap.layout[x()][y()] = 16;
 			if(inter != null) {
-			inter.interactWith(x, y + 1);
+			inter.interactWith(x(), y() + 1);
 		}
 		}
 	}
@@ -184,25 +184,25 @@ public class Link extends GameCharacter{
 	{
 		MapChunk currentMap = CodigoNES.CurrentMap();
 		
-		int anterior = currentMap.layout[x - 1][y];
-		currentMap.layout[x][y] = 19;
-		currentMap.layout[x - 1][y] = drop.range;
+		int anterior = currentMap.layout[x() - 1][y()];
+		currentMap.layout[x()][y()] = 19;
+		currentMap.layout[x() - 1][y()] = drop.range;
 		CodigoNES.view();
+		CodigoNES.item.play();
 		try {
 			Thread.sleep(700);
 		} catch (InterruptedException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		currentMap.layout[x - 1][y] = anterior;
-		
+		currentMap.layout[x() - 1][y()] = anterior;
 		if(drop instanceof Weapon)
 		{	
 		giveWeapon((Weapon) drop);
 		CodigoNES.changeSprites();
 		}
 		
-		currentMap.layout[x][y] = CodigoNES.lastDir;
+		currentMap.layout[x()][y()] = CodigoNES.lastDir;
 	}
 	
 }

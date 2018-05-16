@@ -4,10 +4,9 @@ public class Tile
 {
 	private boolean isCollider;
 	
-	
-	public void setCollider(boolean collider)
+	public void setCollider(boolean col)
 	{
-		this.isCollider = collider;
+		isCollider = col;
 	}
 	
 	public boolean isCollider()

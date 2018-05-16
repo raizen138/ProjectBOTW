@@ -17,6 +17,7 @@ import interactables.Overworld;
 import items.Weapon;
 import terrain.MapChunk;
 import terrain.Water;
+import utilities.Sound;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -26,7 +27,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.4.1
+ * @version Alpha 0.5.0
  *
  */
 public class CodigoNES {
@@ -47,6 +48,12 @@ public class CodigoNES {
 	static char lastDirChar;
 	public static int lastDir;
 	static char lastAction;
+	
+	static Sound shrine = new Sound("music/Shrine.mp3");
+	static Sound field = new Sound("music/Field.mp3");
+	static Sound battle = new Sound("music/Battle.mp3");
+	public static Sound item = new Sound("music/Item.mp3");
+	static Sound currentMusic;
 
 	static Taulell t = new Taulell();
 	static Finestra f = new Finestra(t);
@@ -152,7 +159,7 @@ public class CodigoNES {
 
 	static String currentMapName = new String();
 
-	static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
+	public static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
 	static Weapon lance = new Weapon(21, "spr/lanza.png", 5, 2);
 	public static Weapon fists = new Weapon(0, "", 99, 1);
 	static int[] linkRange = { 1, 2, 3, 4, 13, 14, 15, 16, 19, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
@@ -391,12 +398,7 @@ public class CodigoNES {
 		t.setFreedrawy(freedrawy);
 		t.setImatges(allSprites);
 		
-		t.overdibuixa(lehud);
-
-
-		/*for (int i = 0; i < allSprites.length; i++) {
-			System.out.println(i+" "+allSprites[i]);
-		}*/
+		
 		
 		currentMap.layout = mapacamara.layout;
 		currentMap.name = mapacamara.name;
@@ -405,10 +407,13 @@ public class CodigoNES {
 		currentMap.charLayout = mapacamara.charLayout;
 		currentMap.BgImg = mapacamara.BgImg;
 		currentMap.interLayout = mapacamara.interLayout;
-
+		currentMusic = shrine;
+		
 		t.dibuixa(currentMap.layout);
 		t.setImgbackground(currentMap.BgImg);
+		t.overdibuixa(lehud);
 
+		currentMusic.play();
 		System.out.println("Wake up... Link...");
 		
 
@@ -442,11 +447,11 @@ public class CodigoNES {
 		// Auto-generated method stub
 		link.move();
 		if(lastDirChar == 'j') {
-			link.attack(link.x+mueve[2],link.y+mueve[3]);
+			link.attack(link.x()+mueve[2],link.y()+mueve[3]);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'k') {
-			link.interact(lastDir, currentMap.interLayout[link.x+mueve[2]][link.y+mueve[3]]);
+			link.interact(lastDir, currentMap.interLayout[link.x()+mueve[2]][link.y()+mueve[3]]);
 			lastDirChar = getCharfromDir(lastDir);
 		}
 		if(lastDirChar == 'l') {
@@ -485,7 +490,7 @@ public class CodigoNES {
 
 	private static void gameover() {
 		// Auto-generated method stub
-		currentMap.layout[link.x][link.y] = 45;
+		currentMap.layout[link.x()][link.y()] = 45;
 		view();
 		
 		timer.cancel();
@@ -495,6 +500,7 @@ public class CodigoNES {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
+		currentMusic.close();
 		t.setActimatges(false);
 		t.borraOverdraw();
 		t.setImgbackground("map/gameover.jpg");
@@ -697,13 +703,13 @@ public class CodigoNES {
 		boolean doesChangeMap = false;
 
 		for (Entry<Integer, String> entry : currentMap.exits.entrySet()) {
-			if (currentMap.exitLayout[link.x][link.y] == entry.getKey()) {
+			if (currentMap.exitLayout[link.x()][link.y()] == entry.getKey()) {
 				doesChangeMap = true;
 			}
 		}
 
 		try {
-			getExitCasilla(link.x + movX, link.y + movY);
+			getExitCasilla(link.x() + movX, link.y() + movY);
 
 			return false;
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -711,11 +717,11 @@ public class CodigoNES {
 		}
 
 		if (doesChangeMap) {
-			currentMap.layout[link.x][link.y] = 0;
+			currentMap.layout[link.x()][link.y()] = 0;
 			
 			currentMap.resetEnemies();
 
-			String next = currentMap.getNextMap(currentMap.exitLayout[link.x][link.y]);
+			String next = currentMap.getNextMap(currentMap.exitLayout[link.x()][link.y()]);
 
 			System.out.println(next);
 
@@ -751,20 +757,20 @@ public class CodigoNES {
 
 	public static void changeLinkToNextMap(int direction) {
 
-		if (link.x == 0) {
-			link.x = MAP_HEIGHT - 1;
-		} else if (link.x == MAP_HEIGHT - 1) {
-			link.x = 0;
+		if (link.x() == 0) {
+			link.setX(MAP_HEIGHT - 1);
+		} else if (link.x() == MAP_HEIGHT - 1) {
+			link.setX(0);
 		}
 
-		if (link.y == 0) {
-			link.y = MAP_WIDTH - 1;
-		} else if (link.y == MAP_WIDTH - 1) {
-			link.y = 0;
+		if (link.y() == 0) {
+			link.setY(MAP_WIDTH - 1);
+		} else if (link.y() == MAP_WIDTH - 1) {
+			link.setY(0);
 		}
 
-		currentMap.layout[link.x][link.y] = direction;
-		currentMap.charLayout[link.x][link.y] = 9;
+		currentMap.layout[link.x()][link.y()] = direction;
+		currentMap.charLayout[link.x()][link.y()] = 9;
 	}
 
 	private static int[][] duplicateMatrix(int[][] matrix) {

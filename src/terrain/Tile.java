@@ -1,6 +1,8 @@
 package terrain;
 
-public class Tile
+import java.io.Serializable;
+
+public class Tile implements Serializable
 {
 	private boolean isCollider;
 	

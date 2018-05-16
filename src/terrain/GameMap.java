@@ -1,10 +1,12 @@
 package terrain;
 
+import java.io.Serializable;
+
 import characters.GameCharacter;
 import interactables.Interactable;
 import utilities.Sound;
 
-public class GameMap 
+public class GameMap implements Serializable
 {
 	public static final int HEIGHT = 11;
 	public static final int WIDTH = 16;

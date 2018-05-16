@@ -1,4 +1,5 @@
 package main;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -27,7 +28,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.5.0
+ * @version Alpha 0.5.1
  *
  */
 public class CodigoNES {
@@ -63,6 +64,10 @@ public class CodigoNES {
 	
 	static int[] moblinRange = { 8 };
 	static String[] moblinSprites = { "spr/mobSP.png" };
+	
+	
+	
+	
 
 
 	static int[][] mapa0 = { { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
@@ -190,6 +195,9 @@ public class CodigoNES {
 		 * 46 = Cofre abierto 47 = Boton abiero 48 = Viejo2 49 = Espada OW
 		 */
 
+	
+		
+		
 		mapa0Exits.put(7, "Santuario Resurrección");
 		mapa1Exits.put(7, "Great Plateau");
 		mapa1Exits.put(9, "Camara Resurrección");

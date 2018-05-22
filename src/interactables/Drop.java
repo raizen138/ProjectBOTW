@@ -2,36 +2,34 @@ package interactables;
 
 import characters.Link;
 import items.Item;
+import items.Weapon;
 import main.CodigoNES;
 import terrain.GameMap;
 
+public class Drop extends Interactable
+{
 
-public class Overworld extends Interactable {
+	Item droped;
 	
-	Item drop;
 
-	public Overworld(String[] newSprites, int[] newRange, Item newDrop) {
-		super(newSprites, newRange);
-		drop = newDrop;
-	}
-	
-	public int getCurrentSprite()
+	public Drop(Item newItem) 
 	{
-		return range[0];
+		super(newItem.getSprite(), newItem.getRange());
+		droped = newItem;
 	}
-
+	
 	@Override
 	public void interactWith(int x2, int y2) 
 	{
 		GameMap currentMap = CodigoNES.CurrentMap();
 		Link link = CodigoNES.getLink();
 		
-		if(link.giveItem(drop)) 
+		if(droped instanceof Weapon) {
+		if(link.giveItem(droped)) 
 		{
 			currentMap.setInteractable(null, x2, y2);
 		}
-		
-		
+		}
 		
 	}
 

@@ -34,8 +34,48 @@ public class GameMap implements Serializable
 	{
 		this.name = name;
 		tileLayout = new Tile[11][16];
+		charLayout = new GameCharacter[11][16];
+		interLayout = new Interactable[11][16];
 	}
 
+	public int[][] toIntMap()
+	{
+		int[][] interesante = new int[11][16];
+		
+		for (int i = 0; i < interesante.length; i++) {
+			for (int j = 0; j < interesante[0].length; j++) {
+				
+			try {
+				interesante[i][j] = getInter(i, j).getcurrentSprite();
+			} catch (Exception e) {
+				interesante[i][j] = 0;
+			}
+				
+			}
+		}
+		
+		return interesante;
+		
+	}
+	
+	public int[][] toOverride()
+	{
+		int[][] charizard = new int[11][16];
+		
+		for (int i = 0; i < charizard.length; i++) {
+			for (int j = 0; j < charizard[0].length; j++) {
+				
+				try {
+					charizard[i][j] = getChar(i, j).getCurrentSprite();
+				} catch (Exception e) {
+					charizard[i][j] = 0;
+				}
+				
+			}
+		}
+		return charizard;
+	}
+	
 	
 	public void setTile(Tile tile, int row, int col)
 	{
@@ -78,9 +118,24 @@ public class GameMap implements Serializable
 		return tileLayout[row][col];
 	}
 	
+	public Interactable getInter(int row, int col)
+	{
+		return interLayout[row][col];
+	}
+	
+	public GameCharacter getChar(int row, int col)
+	{
+		return charLayout[row][col];
+	}
+	
 	public String getBgImg()
 	{
 		return BgImg;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 	
 	public Sound getMusic()

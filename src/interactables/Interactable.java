@@ -1,6 +1,8 @@
 package interactables;
 
-public abstract class Interactable 
+import java.io.Serializable;
+
+public abstract class Interactable implements Serializable
 {
 	int[] range;
 	String[] sprites;
@@ -31,7 +33,10 @@ public abstract class Interactable
 	}
 
 	
-	
+	public int getcurrentSprite()
+	{
+		return 0;
+	}
 	
 	
 }

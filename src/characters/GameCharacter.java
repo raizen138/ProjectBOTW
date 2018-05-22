@@ -1,8 +1,10 @@
 package characters;
 
+import java.io.Serializable;
+
 import items.Weapon;
 
-public abstract class GameCharacter 
+public abstract class GameCharacter implements Serializable
 {
 	int[] range;
 	String[] sprites;
@@ -81,5 +83,10 @@ public abstract class GameCharacter
 	public void setY(int y)
 	{
 		this.y = y;
+	}
+
+	public int getCurrentSprite() 
+	{
+		return 0;
 	}
 }

@@ -1,6 +1,8 @@
 package items;
 
-public class Item 
+import java.io.Serializable;
+
+public class Item implements Serializable
 {
 
 	public int range;
@@ -12,4 +14,19 @@ public class Item
 		range = newRange;
 		sprite = allSprites;
 	}
+	
+	
+	public int[] getRange()
+	{
+		int[] ranged = {range};
+		return ranged;
+	}
+	
+	public String[] getSprite()
+	{
+		String[] sprites = {sprite};
+		return sprites;
+	}
+	
+	
 }

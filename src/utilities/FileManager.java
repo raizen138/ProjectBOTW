@@ -7,12 +7,13 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import terrain.GameMap;
+import terrain.MrWorldwide;
 
 public class FileManager
 {
-	public static GameMap[] loadMaps()
+	public static GameMap[][] loadMaps()
 	{
-		ArrayList<GameMap> maps = new ArrayList<>();
+		GameMap[][] mundo = MrWorldwide.getWorld();
 		
 		FileInputStream fis = null;
 		
@@ -32,6 +33,10 @@ public class FileManager
 			e.printStackTrace();
 		}
 		
+		int i = 0;
+		int j = 0;
+		int maps = 0;
+		
 		while(true)
 		{
 			Object temp = null;
@@ -48,13 +53,24 @@ public class FileManager
 			
 			if(temp == null) break;
 					
-			maps.add((GameMap) temp);
+			mundo[i][j] = (GameMap) temp;
+			maps++;
+			
+			if(i<mundo.length) {
+			i++;
+			}else {
+				i = 0;
+				j++;
+			}
+			
+		}
+		int cuantos = mundo.length*mundo[0].length;
+		
+		if(maps<cuantos)
+		{
+			System.out.println("Has cargado "+maps+" mapas y deberian haber-se cargado "+cuantos);
 		}
 		
-		GameMap[] ret = new GameMap[maps.size()];
-		
-		ret = maps.toArray(ret);
-		
-		return ret;
+		return mundo;
 	}
 }

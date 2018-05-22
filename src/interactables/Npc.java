@@ -3,10 +3,11 @@ package interactables;
 import characters.Link;
 import items.Item;
 import main.CodigoNES;
-import terrain.MapChunk;
+import terrain.GameMap;
 
 public class Npc extends Interactable{
 
+	boolean sleep = true;
 	int estado = 0;
 	Item drop;
 	String name = new String();
@@ -17,15 +18,28 @@ public class Npc extends Interactable{
 		drop = newDrop;	
 		name = newName;
 	}
+	
+	
+	public int getCurrentSprite()
+	{
+		if(sleep)
+		{
+			return range[0];
+		}
+		else
+		{
+			return range[1];
+		}
+	}
 
 	@Override
 	public void interactWith(int x2, int y2) 
 	{
-		MapChunk currentMap = CodigoNES.CurrentMap();
+		GameMap currentMap = CodigoNES.CurrentMap();
 		Link link = CodigoNES.getLink();
 		if(estado == 0)
 		{
-			currentMap.layout[x2][y2] = range[1];
+			sleep = false;
 			CodigoNES.view();
 			if(drop != null)
 			{

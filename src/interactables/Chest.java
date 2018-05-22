@@ -2,32 +2,60 @@ package interactables;
 import characters.Link;
 import items.Item;
 import main.CodigoNES;
-import terrain.MapChunk;
+import terrain.GameMap;
 
 public class Chest extends Interactable
 {
 	
-	Item drop;
+	private Item drop;
 	
-	public Chest(String[] newSprites, int[] newRange, Item newDrop) 
+	private boolean open = false;
+	
+	public Chest(String[] newSprites, int[] newRange) 
 	{
 		super(newSprites, newRange);	
+	}
+	
+	public void setDrop(Item newDrop) 
+	{
 		drop = newDrop;
+	}
+	
+	public Item drop() 
+	{
+		if(!open) 
+		{
+		open = true;
+		return drop;
+		}
+		
+		return null;
 	}
 
 	@Override
 	public void interactWith(int x2, int y2) 
 	{
-		MapChunk currentMap = CodigoNES.CurrentMap();
 		Link link = CodigoNES.getLink();
 		
-		if (currentMap.layout[x2][y2] == range[0]) 
+		if (!open) 
 		{
 		if(link.giveItem(drop)) {
-			currentMap.layout[x2][y2] = range[1];	
+			open = true;	
 		}
 		
 		
+		}
+	}
+	
+	public int getCurrentSprite()
+	{
+		if(open)
+		{
+			return range[1];
+		}
+		else
+		{
+			return range[0];
 		}
 	}
 

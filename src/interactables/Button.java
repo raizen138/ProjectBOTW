@@ -35,11 +35,14 @@ public class Button extends Interactable
 			if (currentMap.getName().equals("Camara Resurrección"))
 			{	
 			currentMap.setBackground("map/mapa0abierto.jpg");
-			//TODO
+			currentMap.setExit(CodigoNES.exitmap0, 5, 15);
+			currentMap.setExit(CodigoNES.exitmap0, 6, 15);
 			}
 			if (currentMap.getName().equals("Santuario Resurrección"))
 			{	
 			currentMap.setBackground("map/mapa1abierto.jpg");
+			currentMap.setExit(CodigoNES.exitmap1_1, 5, 15);
+			currentMap.setExit(CodigoNES.exitmap1_1, 6, 15);
 			}
 	
 			activated = true;

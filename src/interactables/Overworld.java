@@ -15,7 +15,7 @@ public class Overworld extends Interactable {
 		drop = newDrop;
 	}
 	
-	public int getCurrentSprite()
+	public int getcurrentSprite()
 	{
 		return range[0];
 	}

@@ -14,6 +14,8 @@ public class Chest extends Interactable
 	public Chest(String[] newSprites, int[] newRange) 
 	{
 		super(newSprites, newRange);	
+		range[0] = 18;
+		range[1] = 46;
 	}
 	
 	public void setDrop(Item newDrop) 
@@ -47,7 +49,7 @@ public class Chest extends Interactable
 		}
 	}
 	
-	public int getCurrentSprite()
+	public int getcurrentSprite()
 	{
 		if(open)
 		{

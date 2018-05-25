@@ -4,6 +4,7 @@ import items.Item;
 import items.Weapon;
 import main.CodigoNES;
 import terrain.GameMap;
+import utilities.MapCreator;
 
 public class Link extends GameCharacter{
 	
@@ -121,7 +122,7 @@ public class Link extends GameCharacter{
 		}
 		else 
 		{
-		if (weapon == CodigoNES.fists) 
+		if (weapon.range == 0) 
 		{
 			if (lastDir == linkS) lastDir=1;
 			if (lastDir == linkW) lastDir=4;
@@ -136,7 +137,7 @@ public class Link extends GameCharacter{
 			linkSe = 15;
 			linkDe = 16;
 		} 
-		else if (weapon == CodigoNES.sword) 
+		else if (weapon.range == 20) 
 		{
 			if (lastDir == linkS) lastDir=31;
 			if (lastDir == linkW) lastDir=29;
@@ -151,7 +152,7 @@ public class Link extends GameCharacter{
 			linkSe = 35;
 			linkDe = 36;
 		} 
-		else if (weapon == CodigoNES.lance) 
+		else if (weapon.range == 21) 
 		{
 			if (lastDir == linkS) lastDir=39;
 			if (lastDir == linkW) lastDir=37;
@@ -250,7 +251,7 @@ public class Link extends GameCharacter{
 			
 			if(!doesChangeMap) {
 			boolean semueve = CodigoNES.dale(direccion, x(), y(), CodigoNES.mueve[0], CodigoNES.mueve[1]);
-				if (semueve == true) {
+				if (semueve) {
 					setX(x() + CodigoNES.mueve[0]);
 					setY(y() + CodigoNES.mueve[1]);
 				}
@@ -280,27 +281,59 @@ public class Link extends GameCharacter{
 		
 		if (direccion == linkW) {
 			CodigoNES.lehud[0][x()][y()] = 13;
+			CodigoNES.view();
+			
 			if(inter != null) {
 			inter.interactWith(x() - 1, y());
+			}
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				// Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if (direccion == linkA) {
 			CodigoNES.lehud[0][x()][y()] = 14;
+			CodigoNES.view();
+			
 			if(inter != null) {
 			inter.interactWith(x(), y() - 1);
+			}
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				// Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if (direccion == linkS) {
 			CodigoNES.lehud[0][x()][y()] = 15;
+			CodigoNES.view();
+			
 			if(inter != null) {
 			inter.interactWith(x() + 1, y());
+			}
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				// Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if (direccion == linkD) {
 			CodigoNES.lehud[0][x()][y()] = 16;
+			CodigoNES.view();
+		
 			if(inter != null) {
 			inter.interactWith(x(), y() + 1);
-		}
+			}
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				// Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -309,7 +342,7 @@ public class Link extends GameCharacter{
 	Link link = CodigoNES.getLink();
 	if(drop instanceof Weapon)
 	{
-		if(link.weapon == CodigoNES.fists)
+		if(link.weapon.range == 0)
 		{
 			Item(drop);
 			return true;	

@@ -1,7 +1,9 @@
 package terrain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import characters.Enemy;
 import characters.GameCharacter;
 import interactables.Interactable;
 import utilities.Sound;
@@ -20,6 +22,8 @@ public class GameMap implements Serializable
 	//public int[][] layout;
 	
 	private String BgImg = new String();
+	
+	private ArrayList<Enemy> enemigos = new ArrayList<Enemy>();
 	
 	
 	
@@ -74,6 +78,17 @@ public class GameMap implements Serializable
 			}
 		}
 		return charizard;
+	}
+	
+	
+	public void setMob(Enemy mob)
+	{
+		enemigos.add(mob);
+	}
+	
+	public ArrayList<Enemy> Mob()
+	{
+		return enemigos;
 	}
 	
 	

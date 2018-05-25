@@ -1,8 +1,5 @@
 package main;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import characters.Enemy;
 import characters.GameCharacter;
@@ -10,16 +7,10 @@ import characters.Link;
 import graphics.Finestra;
 import graphics.Hud;
 import graphics.Taulell;
-import interactables.Button;
-import interactables.Chest;
-import interactables.Drop;
-import interactables.Interactable;
-import interactables.Npc;
-import interactables.Overworld;
 import items.Weapon;
 import terrain.Exit;
 import terrain.GameMap;
-import terrain.Water;
+import terrain.Tile;
 import utilities.FileManager;
 import utilities.MapCreator;
 import utilities.Sound;
@@ -32,7 +23,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.6.0 (wip)
+ * @version Alpha 0.7.0 
  *
  */
 public class CodigoNES {
@@ -54,15 +45,16 @@ public class CodigoNES {
 
 	static int timercito = 0;
 	
-	static Exit exitmap0 = new Exit("Santuario Resurrección");
+	public static Exit exitmap0 = new Exit("Santuario Resurrección");
 	static Exit exitmap1_0 = new Exit("Camara Resurrección");
-	static Exit exitmap1_1 = new Exit("Great Plateau");
+	public static Exit exitmap1_1 = new Exit("Great Plateau");
 	static Exit exitmap2_0 = new Exit("Santuario Resurrección");
 	static Exit exitmap2_1 = new Exit("El mapa del viejo");
 	static Exit exitmap3_0 = new Exit("Great Plateau");
 	static Exit exitmap3_1 = new Exit("Primeros Moblins");
 	static Exit exitmap4_0 = new Exit("El mapa del viejo");
 	static Exit exitmap4_1 = new Exit("Segundos Moblins");
+	static Exit exitmap4_2 = new Exit("La Espada");
 	static Exit exitmap5_0 = new Exit("Primeros Moblins");
 	static Exit exitmap5_1 = new Exit("Puente");
 
@@ -83,10 +75,9 @@ public class CodigoNES {
 			"spr/linkDeE.png", "spr/linkWL.png", "spr/linkAL.png", "spr/linkSL.png", "spr/linkDL.png",
 			"spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png" };
 	public static Link link;
-	public static ArrayList<GameCharacter> moblin = new ArrayList<GameCharacter>();
 	
-	static GameMap[][] mundo = FileManager.loadMaps();
-	static GameMap currentMap = new GameMap(null);
+	public static GameMap[][] mundo = FileManager.loadMaps();
+	static GameMap currentMap;
 	
 	public static void main(String[] args) {
 		//
@@ -105,8 +96,9 @@ public class CodigoNES {
 		 * 46 = Cofre abierto 47 = Boton abiero 48 = Viejo2 49 = Espada OW
 		 */
 	
-		
-		currentMap = mundo[0][0];
+		initWorld();
+		initMap();
+	
 		currentMusic = shrine;
 		
 		int[][] chars = currentMap.toOverride();
@@ -140,7 +132,7 @@ public class CodigoNES {
 		sword.writeRange(allSprites);
 		lance.writeRange(allSprites);
 		MapCreator.cofre.writeRange(allSprites);
-		MapCreator.boton.writeRange(allSprites);
+		MapCreator.boton1.writeRange(allSprites);
 		MapCreator.viejo.writeRange(allSprites);
 		MapCreator.espada.writeRange(allSprites);
 		allSprites[50] = "spr/interface.png";
@@ -168,13 +160,24 @@ public class CodigoNES {
 		currentMusic.play();
 		System.out.println("Wake up... Link...");
 		
-
+		/*
+		for(int i = 0; i<mundo.length; i++)
+		{
+			for(int j = 0; j<mundo[0].length; j++)
+			{
+				System.out.println(mundo[i][j].getName());
+			}
+		}
+		*/
+		
 			timer.schedule(new TimerTask() {
 		
 				@Override
 				public void run() {
 					play();
 					view();
+					lehud[0] = currentMap.toOverride();
+					System.out.println(timercito);
 					if (link.isDead()) {
 						gameover();
 					}
@@ -186,12 +189,68 @@ public class CodigoNES {
 
 		
 	}
+	
+	
+	private static void initWorld()
+	{
+		mundo[0][0].setBackground("map/mapa0cerrado.jpg");
+		mundo[0][0].setMusic(shrine);
+		mundo[0][1].setBackground("map/mapa1cerrado.jpg");
+		mundo[0][1].setMusic(shrine);
+		mundo[0][2].setBackground("map/mapa2.jpg");
+		mundo[0][2].setMusic(field);
+		mundo[1][2].setBackground("map/mapa3.jpg");
+		mundo[1][2].setMusic(field);
+		mundo[2][2].setBackground("map/mapa4.jpg");
+		mundo[2][2].setMusic(battle);
+		mundo[2][1].setBackground("map/mapa5.jpg");
+		mundo[2][1].setMusic(field);
+		mundo[0][1].setExit(exitmap1_0, 6, 0);
+		mundo[0][1].setExit(exitmap1_0, 5, 0);
+		mundo[0][2].setExit(exitmap2_0, 6, 0);
+		mundo[0][2].setExit(exitmap2_0, 5, 0);
+		for(int i = 6; i<10; i++) 
+		{ 
+			mundo[0][2].setExit(exitmap2_1, 10, i);
+			mundo[1][2].setExit(exitmap3_0, 0, i);
+		}
+		for(int i = 6; i<14; i++) {
+			mundo[1][2].setExit(exitmap3_1, 10, i);
+			mundo[2][2].setExit(exitmap4_0, 0, i);
+		}
+		for(int i = 1; i<11; i++) {
+			mundo[2][2].setExit(exitmap4_1, 10, i);
+		}
+		exitmap4_2.setWater(true);
+		exitmap5_0.setWater(true);
+		for(int i = 3; i<10; i++) {
+			mundo[2][2].setExit(exitmap4_2, i, 0);
+			mundo[2][1].setExit(exitmap5_0, i, 15);
+		}
+		exitmap5_1.setWater(true);
+		for(int i = 1; i<16; i++) {
+			mundo[2][1].setExit(exitmap5_1, 10, i);
+		}
+		
+		
+	}
 
-	public static void view() {
+
+	protected static void initMap()
+	{
+		int[] pos = FileManager.loadMapLink();
+		
+		currentMap = mundo[pos[0]][pos[1]];
+		
+		link = (Link) currentMap.getChar(pos[2], pos[3]);
+	}
+	
+
+	public static void view()
+	{
 		// Auto-generated method stub
 		t.dibuixa(currentMap.toIntMap());
 		t.setImgbackground(currentMap.getBgImg());
-		lehud[0] = currentMap.toOverride();
 		lehud[2] = Hud.instance().getLayout(link.getHealth()*2, lehud[2]);
 		t.overdibuixa(lehud);
 	}
@@ -211,14 +270,14 @@ public class CodigoNES {
 			
 			
 		}
-		if(timercito%3==0) {
+		if(timercito%3==0 && timercito!=0) {
 			EnemyUpdate();
 		}
 	}
 
 	private static void EnemyUpdate()
 	{
-		for(GameCharacter e : moblin)
+		for(GameCharacter e : currentMap.Mob())
 		{
 			e.Update();
 		}
@@ -254,8 +313,8 @@ public class CodigoNES {
 	public static boolean dale(int character, int currentRow, int currentCol, int movx, int movy) {
 		
 		
-		if (!currentMap.getTile(currentRow+movx, currentCol+movy).isCollider()) {
-			if(currentMap.getTile(currentRow+movx, currentCol+movy) instanceof Water) {
+		if (!currentMap.getTile(currentRow+movx, currentCol+movy).isCollider() && currentMap.getChar(currentRow+movx, currentCol+movy) == null) {
+			if(currentMap.getTile(currentRow+movx, currentCol+movy).isWater()) {
 				link.estado = 1;
 			}
 			else 
@@ -341,38 +400,27 @@ public class CodigoNES {
 	{
 		boolean doesChangeMap = false;
 
-		for (Entry<Integer, String> entry : currentMap.exits.entrySet()) {
-			if (currentMap.exitLayout[link.x()][link.y()] == entry.getKey()) {
-				doesChangeMap = true;
-			}
-		}
-
-		try {
+		try
+		{
 			getExitCasilla(link.x() + movX, link.y() + movY);
 
 			return false;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			doesChangeMap = true;
 		}
 
 		if (doesChangeMap) {
-			currentMap.layout[link.x()][link.y()] = 0;
+			currentMap.setGameCharacter(null, link.x(), link.y());
 			
-			currentMap.resetEnemies();
+			Exit exit = (Exit) currentMap.getTile(link.x(), link.y());
 
-			String next = currentMap.getNextMap(currentMap.exitLayout[link.x()][link.y()]);
-
-			System.out.println(next);
-
-			mapeado[indexOfMap(currentMap.name)].BgImg = currentMap.BgImg;
-
-			currentMap = mapeado[indexOfMap(next)];
+			int[] oldmap = indexOfMap(currentMap.getName());
+			int[] mcord = indexOfMap(exit.mapTo());
 			
-			moblin.clear();
-			
-			for (int i = 1; i <= currentMap.nEnemy; i++) {
-				moblin.add(new Enemy(moblinRange, moblinSprites, 3, fists, i));
-			}
+			mundo[oldmap[0]][oldmap[1]] = currentMap;
+			currentMap = mundo[mcord[0]][mcord[1]];
 			
 			timercito = 0;
 		}
@@ -380,18 +428,27 @@ public class CodigoNES {
 		return doesChangeMap;
 	}
 
-	private static int getExitCasilla(int fil, int col) throws ArrayIndexOutOfBoundsException {
-		return currentMap.exitLayout[fil][col];
+	private static Tile getExitCasilla(int fil, int col) throws ArrayIndexOutOfBoundsException
+	{
+		return currentMap.getTile(fil, col);
 	}
 
-	private static int indexOfMap(String name) {
-		for (int i = 0; i < mapeado.length; i++) {
-			if (mapeado[i].name.equals(name)) {
-				return i;
+	private static int[] indexOfMap(String name) {
+		
+		int[] mun = new int[2];
+		for (int i = 0; i < mundo.length; i++) {
+			for (int j = 0; j<mundo[0].length; j++) {
+				
+			if (mundo[i][j].getName().equals(name))
+			{
+				mun[0] = i;
+				mun[1] = j;
+				return mun;
+			}
 			}
 		}
 
-		return -1;
+		return mun;
 	}
 
 	public static void changeLinkToNextMap(int direction) {
@@ -407,9 +464,11 @@ public class CodigoNES {
 		} else if (link.y() == GameMap.WIDTH - 1) {
 			link.setY(0);
 		}
+		
+		lehud[0][link.x()][link.y()] = direction;
+		currentMap.setGameCharacter(link, link.x(), link.y());
+		
 
-		currentMap.layout[link.x()][link.y()] = direction;
-		currentMap.charLayout[link.x()][link.y()] = 9;
 	}
 
 	

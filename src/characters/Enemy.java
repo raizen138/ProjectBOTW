@@ -8,10 +8,11 @@ public class Enemy extends GameCharacter{
 
 	private Drop dropdbass;
 	
-	public Enemy(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon, Drop newDrop)
+	public Enemy(int[] newRange, String[] allSprites, int newHealth, Weapon newWeapon, Drop newDrop, int x, int y)
 	{
 		super(newRange, allSprites, newHealth, newWeapon);
-		
+		this.setX(x);
+		this.setY(y);		
 	}
 
 	public Drop getDrop()

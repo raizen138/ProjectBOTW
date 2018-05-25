@@ -20,7 +20,7 @@ public class Npc extends Interactable{
 	}
 	
 	
-	public int getCurrentSprite()
+	public int getcurrentSprite()
 	{
 		if(sleep)
 		{

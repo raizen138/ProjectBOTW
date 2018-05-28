@@ -2,8 +2,10 @@ package utilities;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import characters.GameCharacter;
@@ -14,6 +16,51 @@ import terrain.MrWorldwide;
 
 public class FileManager
 {
+	public static void saveMaps()
+	{
+	GameMap[][] mundo = CodigoNES.World();
+	
+	FileOutputStream fos = null;
+	
+	try {
+		fos = new FileOutputStream("map/mapas.dat");
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	ObjectOutputStream oos = null;
+	
+	try {
+		oos = new ObjectOutputStream(fos);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	for(int i = 0; i<mundo.length; i++) {
+		for(int j = 0; j<mundo[0].length; j++) {
+			
+	try {
+		oos.writeObject(mundo[i][j]);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		}
+	}
+	
+	try {
+		oos.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	}
+	
+	
+	
 	public static GameMap[][] loadMaps()
 	{
 		GameMap[][] mundo = MrWorldwide.getWorld();

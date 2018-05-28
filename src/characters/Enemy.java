@@ -2,6 +2,7 @@ package characters;
 import interactables.Drop;
 import items.Weapon;
 import main.CodigoNES;
+import terrain.Exit;
 import terrain.GameMap;
 
 public class Enemy extends GameCharacter{
@@ -81,7 +82,8 @@ public class Enemy extends GameCharacter{
 				switch (opt)
 				{
 					case 0:
-						if (currentMap.getTile(x() - 1, y()).isCollider() == false && currentMap.getChar(x() - 1, y()) == null)
+						if (currentMap.getTile(x() - 1, y()).isCollider() == false && currentMap.getChar(x() - 1, y()) == null
+						&& !(currentMap.getTile(x() - 1, y()) instanceof Exit) && currentMap.getTile(x() - 1, y()).isWater() == false)
 						{
 							currentMap.setGameCharacter(this, x()-1, y());
 							currentMap.setGameCharacter(null, x(), y());
@@ -92,7 +94,8 @@ public class Enemy extends GameCharacter{
 						return false;
 					
 					case 1:
-						if (currentMap.getTile(x(), y()-1).isCollider() == false && currentMap.getChar(x(), y()-1) == null)
+						if (currentMap.getTile(x(), y()-1).isCollider() == false && currentMap.getChar(x(), y()-1) == null
+								&& !(currentMap.getTile(x(), y()-1) instanceof Exit) && currentMap.getTile(x(), y()-1).isWater() == false)
 						{
 							currentMap.setGameCharacter(this, x(), y()-1);
 							currentMap.setGameCharacter(null, x(), y());
@@ -103,7 +106,8 @@ public class Enemy extends GameCharacter{
 						return false;
 						
 					case 2:
-						if (currentMap.getTile(x() + 1, y()).isCollider() == false && currentMap.getChar(x() + 1, y()) == null)
+						if (currentMap.getTile(x() + 1, y()).isCollider() == false && currentMap.getChar(x() + 1, y()) == null
+								&& !(currentMap.getTile(x() + 1, y()) instanceof Exit) && currentMap.getTile(x() + 1, y()).isWater() == false)
 						{
 							currentMap.setGameCharacter(this, x()+1, y());
 							currentMap.setGameCharacter(null, x(), y());
@@ -114,7 +118,8 @@ public class Enemy extends GameCharacter{
 						return false;
 						
 					case 3:
-						if (currentMap.getTile(x(), y()+1).isCollider() == false && currentMap.getChar(x(), y()+1) == null)
+						if (currentMap.getTile(x(), y()+1).isCollider() == false && currentMap.getChar(x(), y()+1) == null
+								&& !(currentMap.getTile(x(), y()+1) instanceof Exit) && currentMap.getTile(x(), y()+1).isWater() == false)
 						{
 							currentMap.setGameCharacter(this, x(), y()+1);
 							currentMap.setGameCharacter(null, x(), y());

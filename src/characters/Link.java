@@ -267,8 +267,7 @@ public class Link extends GameCharacter{
 
 	@Override
 	public void Update() {
-		
-		
+		health = 3;
 	}
 
 	@Override

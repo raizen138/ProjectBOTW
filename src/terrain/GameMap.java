@@ -15,7 +15,7 @@ public class GameMap implements Serializable
 	
 	private String name = new String();
 	
-	private Sound music;
+	private String music;
 	
 	
 	
@@ -102,7 +102,7 @@ public class GameMap implements Serializable
 		this.BgImg = path;
 	}
 	
-	public void setMusic(Sound sound)
+	public void setMusic(String sound)
 	{
 		this.music = sound;
 	}	
@@ -153,7 +153,7 @@ public class GameMap implements Serializable
 		return name;
 	}
 	
-	public Sound getMusic()
+	public String getMusic()
 	{
 		return music;
 	}

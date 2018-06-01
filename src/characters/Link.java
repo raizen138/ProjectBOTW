@@ -1,5 +1,6 @@
 package characters;
 import interactables.Interactable;
+import items.Heal;
 import items.Item;
 import items.Weapon;
 import main.CodigoNES;
@@ -34,6 +35,12 @@ public class Link extends GameCharacter{
 		setY(5);
 		
 		
+	}
+	
+	public void heal(double cura)
+	{
+		health = health + cura;
+		if(health > 3) health = 3;
 	}
 	
 	public int getCurrentSprite() 
@@ -236,7 +243,7 @@ public class Link extends GameCharacter{
 		}
 	}
 	
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 
@@ -348,8 +355,11 @@ public class Link extends GameCharacter{
 		}else {
 			return false;
 		}
+	}else{
+		Item(drop);
+		return true;
 	}
-		return false;
+		
 	}
 
 	public void Item(Item drop)
@@ -373,6 +383,11 @@ public class Link extends GameCharacter{
 		{	
 		giveWeapon((Weapon) drop);
 		changeSprites();
+		}
+		else
+		{
+		Heal nuevo = (Heal) drop;
+		heal(nuevo.cura);
 		}
 		CodigoNES.lehud[3][x()-1][y()] = 0;
 		CodigoNES.lehud[0][x()][y()] = lastDir;

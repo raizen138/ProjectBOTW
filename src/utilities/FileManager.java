@@ -103,11 +103,11 @@ public class FileManager
 			
 			if(temp == null) break;
 			
-					
+				
 			mundo[i][j] = (GameMap) temp;
 			maps++;
 			
-			if(j<mundo.length-1) {
+			if(j<mundo[0].length-1) {
 			j++;
 			}else {
 				j = 0;

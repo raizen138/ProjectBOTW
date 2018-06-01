@@ -24,7 +24,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 0.7.1 
+ * @version Alpha 1.0
  *
  */
 public class CodigoNES {
@@ -35,6 +35,7 @@ public class CodigoNES {
 	public static int[] mueve = new int[4];
 	
 	public static Sound item = new Sound("music/Item.mp3");
+	public static Sound gameover = new Sound("music/Gameover.mp3");
 	static Sound currentMusic;
 
 	static Taulell t = new Taulell();
@@ -55,7 +56,10 @@ public class CodigoNES {
 	static Exit exitmap4_2 = new Exit("La Espada");
 	static Exit exitmap5_0 = new Exit("Primeros Moblins");
 	static Exit exitmap5_1 = new Exit("Puente");
-
+	static Exit exitmap6_0 = new Exit("Primeros Moblins");
+	static Exit exitmap6_1 = new Exit("Puente");
+	static Exit exitmap7_0 = new Exit("Segundos Moblins");
+	static Exit exitmap7_1 = new Exit("La Espada");
 	
 	public static int[][][] lehud = new int[4][][];
 
@@ -111,7 +115,8 @@ public class CodigoNES {
 		 * 46 = Cofre abierto 47 = Boton abiero 48 = Viejo2 49 = Espada OW
 		 */
 	
-		initWorld();
+		
+		
 		
 		/*
 		for(int i = 0; i<mundo.length; i++)
@@ -139,7 +144,7 @@ public class CodigoNES {
 		int[][] hearts = new int[24][36];
 		int[][] items = new int[11][16];
 		
-		hearts = Hud.instance().getLayout(link.getHealth()*2, hearts);
+		hearts = Hud.instance().getLayout((int) (link.getHealth()*2), hearts);
 		
 		lehud[0] = chars;
 		lehud[1] = interfaced;
@@ -172,13 +177,16 @@ public class CodigoNES {
 		allSprites[51] = "spr/health.png";
 		allSprites[52] = "spr/health2.png";
 		allSprites[53] = "spr/health3.png";
+		allSprites[54] = "spr/manzana.png";
 		allSprites[8] = "spr/mobSP.png";
+		allSprites[55] = "spr/mob.png";
+		allSprites[56] = "spr/moblon.png";
 		// 5 10 15 20 25 30 35 40 45
 		double[] freedrawy = { 1, 1.3125, 1.375, 1.375, 1.25, 1, 1, 1, 1.6875, 1, 1, 1, 1, 1.5, 1.3125, 1.25, 1.3125, 1.1875,
 				1, 1.375, 1.5, 1.5, 1, 1, 1.375, 1.125, 1.375, 1.125, 1, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125,
-				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1, 1.375, 1.375, 1, 1, 1, 1 };
+				1.6875, 1.3125, 1.25, 1.3125, 1.75, 1.3125, 1.625, 1.3125, 1.75, 1.3125, 1, 1, 1, 1.375, 1.375, 1, 1, 1, 1, 1.5, 1.6875, 1.6875 };
 		double[] freedrawx = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.1875, 1,
-				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1, 1, 1.3125, 1, 1 ,1 ,1 };
+				1.1875, 1, 1, 1.25, 1, 1.25, 1, 1.6875, 1, 1.6875, 1, 1.3125, 1, 1.3125, 1, 1.6875, 1, 1.6875, 1.5, 1, 1, 1, 1.3125, 1, 1 ,1 ,1, 1, 1, 1 };
 		/// 5 10 15 20 25 30 35 40 45
 		t.setFreedrawx(freedrawx);
 		t.setFreedrawy(freedrawy);
@@ -191,7 +199,7 @@ public class CodigoNES {
 		t.overdibuixa(lehud);
 
 		currentMusic.play();
-		System.out.println("Wake up... Link...");
+		
 		
 		/*
 		for(int i = 0; i<mundo.length; i++)
@@ -213,11 +221,14 @@ public class CodigoNES {
 		
 	}
 	
-	private static void reload()
+	public static void reload()
 	{
 		mundo = FileManager.loadMaps();
 		initMap();
 		t.setActimatges(true);
+		link.heal(3);
+		currentMusic = new Sound (currentMap.getMusic());
+		currentMusic.play();
 		view();
 		timer = new Timer();
 		sketit = new TimerTask() 
@@ -241,7 +252,7 @@ public class CodigoNES {
 	}
 	
 	
-	private static void initWorld()
+	static void initWorld()
 	{
 		mundo[0][0].setBackground("map/mapa0cerrado.jpg");
 		mundo[0][0].setMusic("music/Shrine.mp3");
@@ -255,6 +266,10 @@ public class CodigoNES {
 		mundo[2][2].setMusic("music/Battle.mp3");
 		mundo[2][1].setBackground("map/mapa5.jpg");
 		mundo[2][1].setMusic("music/Field.mp3");
+		mundo[3][1].setBackground("map/mapa7.jpg");
+		mundo[3][1].setMusic("music/Battle.mp3");
+		mundo[3][2].setBackground("map/mapa6.jpg");
+		mundo[3][2].setMusic("music/Battle.mp3");
 		mundo[0][1].setExit(exitmap1_0, 6, 0);
 		mundo[0][1].setExit(exitmap1_0, 5, 0);
 		mundo[0][2].setExit(exitmap2_0, 6, 0);
@@ -270,6 +285,7 @@ public class CodigoNES {
 		}
 		for(int i = 1; i<11; i++) {
 			mundo[2][2].setExit(exitmap4_1, 10, i);
+			mundo[3][2].setExit(exitmap6_0, 0, i);
 		}
 		exitmap4_2.setWater(true);
 		exitmap5_0.setWater(true);
@@ -278,10 +294,16 @@ public class CodigoNES {
 			mundo[2][1].setExit(exitmap5_0, i, 15);
 		}
 		exitmap5_1.setWater(true);
+		exitmap7_1.setWater(true);
 		for(int i = 1; i<16; i++) {
 			mundo[2][1].setExit(exitmap5_1, 10, i);
+			mundo[3][1].setExit(exitmap7_1, 0, i);
 		}
-		
+		for(int i = 1; i<9; i++) {
+			mundo[3][2].setExit(exitmap6_1, i, 0);
+			mundo[3][1].setExit(exitmap7_0, i, 15);
+		}
+	
 		
 	}
 
@@ -290,11 +312,7 @@ public class CodigoNES {
 	{
 		int[] pos = FileManager.loadMapLink();
 		
-		System.out.println(pos[0]+" "+pos[1]);
-		
 		currentMap = mundo[pos[0]][pos[1]];
-		
-		System.out.println(pos[2]+ " "+pos[3]);
 		
 		link = (Link) currentMap.getChar(pos[2], pos[3]);
 	}
@@ -305,7 +323,7 @@ public class CodigoNES {
 		// Auto-generated method stub
 		t.dibuixa(currentMap.toIntMap());
 		t.setImgbackground(currentMap.getBgImg());
-		lehud[2] = Hud.instance().getLayout(link.getHealth()*2, lehud[2]);
+		lehud[2] = Hud.instance().getLayout((int) (link.getHealth()*2), lehud[2]);
 		t.overdibuixa(lehud);
 	}
 
@@ -333,6 +351,7 @@ public class CodigoNES {
 	{
 		for(GameCharacter e : currentMap.Mob())
 		{
+			if(!e.isDead())
 			e.Update();
 		}
 	}
@@ -344,19 +363,28 @@ public class CodigoNES {
 		view();
 		
 		timer.cancel();
+		currentMusic.close();
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		currentMusic.close();
+		gameover.play();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		t.setActimatges(false);
 		t.borraOverdraw();
 		t.setImgbackground("map/gameover.jpg");
 		t.dibuixa(currentMap.toIntMap());
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
@@ -473,9 +501,10 @@ public class CodigoNES {
 			int[] oldmap = indexOfMap(currentMap.getName());
 			int[] mcord = indexOfMap(exit.mapTo());
 			
+			String oldm = currentMap.getMusic();
 			mundo[oldmap[0]][oldmap[1]] = currentMap;
 			currentMap = mundo[mcord[0]][mcord[1]];
-			
+			changeMusic(oldm);
 			timercito = 0;
 		}
 
@@ -523,10 +552,23 @@ public class CodigoNES {
 		currentMap.setGameCharacter(link, link.x(), link.y());
 		FileManager.saveMaps();
 		
+		
+		
 
 	}
 
 	
+	private static void changeMusic(String oldm) 
+	{
+		if (!oldm.equals(currentMap.getMusic())) 
+		{
+			currentMusic.close();
+			currentMusic = new Sound (currentMap.getMusic());
+			currentMusic.play();
+		}
+		
+	}
+
 	public static GameMap[][] World()
 	{
 		return mundo;

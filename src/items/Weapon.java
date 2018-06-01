@@ -4,14 +4,14 @@ public class Weapon extends Item
 {
 	
 	public int dura;
-	public int attack;
+	public double attack;
 	public int duraMax;
 	
-	public Weapon(int newRange, String allSprites, int newDura, int newAttack) 
+	public Weapon(int newRange, String allSprites, int newDura, double d) 
 	{
 		super(newRange, allSprites);
 		dura = newDura;
-		attack = newAttack;
+		attack = d;
 		duraMax = newDura;
 	}
 	

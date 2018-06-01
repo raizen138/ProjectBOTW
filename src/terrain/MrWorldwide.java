@@ -12,7 +12,7 @@ public class MrWorldwide implements Serializable
 		 
 		if (mapeado == null) 
 		{
-			mapeado = new GameMap[3][3];
+			mapeado = new GameMap[4][3];
 		}
 		
 		return mapeado;

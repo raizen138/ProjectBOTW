@@ -18,6 +18,7 @@ import interactables.Chest;
 import interactables.Drop;
 import interactables.Npc;
 import interactables.Overworld;
+import items.Heal;
 import items.Weapon;
 import main.CodigoNES;
 import terrain.GameMap;
@@ -29,6 +30,8 @@ public class MapCreator {
 	
 	final static int[] chestrange = {18, 46};
 	final static String[] chestsprites = {"spr/cofreC.png", "spr/cofreA.png"};
+	final static int[] manzanarange = {54};
+	final static String[] manzanasprites = {"spr/manzana.png"};
 	final static int[] botonrange = {5, 47};
 	final static String[] botonsprites = {"spr/botonD.png", "spr/botonA.png"};
 	final static int[] viejorange = {17, 48};
@@ -45,14 +48,18 @@ public class MapCreator {
 			"spr/linkWeL.png", "spr/linkAeL.png", "spr/linkSeL.png", "spr/linkDeL.png", "spr/linkD.png" };
 	public static Weapon sword = new Weapon(20, "spr/espada.png", 2, 3);
 	public static Weapon fists = new Weapon(0, "", 99, 1);
-	public static Weapon lance = new Weapon(21, "spr/lanza.png", 5, 2);
+	public static Weapon fisto = new Weapon(0, "", 99, 0.5);
+	public static Weapon fistazo = new Weapon(0, "", 99, 1.5);
+	public static Weapon lance;
+	public static Heal manzanas = new Heal(manzanarange[0], manzanasprites[0], 1);
 	public static Link link = new Link(linkRange, linkSprites, 3, fists);
 	public static Chest cofre = new Chest(chestsprites, chestrange);
 	public static Npc viejo = new Npc(viejosprites, viejorange, sword, "Anciano");
 	public static Button boton1 = new Button(botonsprites, botonrange);
 	public static Button boton2 = new Button(botonsprites, botonrange);
 	public static Overworld espada = new Overworld(espadasprites, espadarange ,sword);
-	public static Drop moblind = new Drop(lance);
+	public static Overworld manzana = new Overworld(null, null ,manzanas);
+	
 
 	public static void main(String[] args)
 	{
@@ -60,6 +67,7 @@ public class MapCreator {
 		
 		String path = "map/mapas.txt";
 		
+		cofre.setOpen();
 		
 		File mapas = new File(path);
 		
@@ -85,8 +93,10 @@ public class MapCreator {
 		
 		int[] moblinRange = { 8 };
 		String[] moblinSprites = { "spr/mobSP.png" };
-
-		
+		int[] moblin1Range = { 55 };
+		String[] moblin1Sprites = { "spr/mob.png" };
+		int[] moblonRange = { 56 };
+		String[] moblonSprites = { "spr/moblon.png" };
 		
 		
 		for(int i = 0; i<maps.length; i++)
@@ -99,8 +109,6 @@ public class MapCreator {
 				sc.nextLine();
 			}
 			String name = sc.nextLine();	
-			System.out.println(name);
-			System.out.println("mapa "+i+" "+l);
 			maps[i][l].setName(name);
 			if(!name.equals("null")) 
 			{
@@ -150,6 +158,14 @@ public class MapCreator {
 						maps[i][l].setInteractable(espada, j, k);
 					}
 					else
+						
+					if(in.equals("p"))
+					{
+						casilla.setCollider(true);
+						maps[i][l].setTile(casilla, j, k);
+						maps[i][l].setInteractable(manzana, j, k);
+					}
+					else
 					
 					if(in.equals("b1"))
 					{
@@ -178,12 +194,33 @@ public class MapCreator {
 					{
 						casilla.setCollider(false);
 						maps[i][l].setTile(casilla, j, k);
+						lance = new Weapon(21, "spr/lanza.png", 3, 2);
+						Drop moblind = new Drop(lance);
 						Enemy moblines = new Enemy(moblinRange, moblinSprites, 3, fists, moblind, j, k);
 						maps[i][l].setMob(moblines);
 						maps[i][l].setGameCharacter(moblines, j, k);
 					}
 					else
 					
+					if(in.equals("m1"))
+					{
+						casilla.setCollider(false);
+						maps[i][l].setTile(casilla, j, k);
+						Enemy moblines = new Enemy(moblin1Range, moblin1Sprites, 2, fisto, null, j, k);
+						maps[i][l].setMob(moblines);
+						maps[i][l].setGameCharacter(moblines, j, k);
+					}
+					else	
+						
+					if(in.equals("M"))
+					{
+						casilla.setCollider(false);
+						maps[i][l].setTile(casilla, j, k);
+						Enemy moblines = new Enemy(moblonRange, moblonSprites, 10, fistazo, null, j, k);
+						maps[i][l].setMob(moblines);
+						maps[i][l].setGameCharacter(moblines, j, k);
+					}
+					else
 						
 					if(in.equals("w"))
 					{

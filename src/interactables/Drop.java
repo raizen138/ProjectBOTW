@@ -32,5 +32,10 @@ public class Drop extends Interactable
 		}
 		
 	}
+	
+	public int getcurrentSprite()
+	{
+		return range[0];
+	}
 
 }

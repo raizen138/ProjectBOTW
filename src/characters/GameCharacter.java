@@ -8,7 +8,7 @@ public abstract class GameCharacter implements Serializable
 {
 	int[] range;
 	String[] sprites;
-	int health;
+	double health;
 	public Weapon weapon;
 	public int estado;
 	private int x;
@@ -56,9 +56,9 @@ public abstract class GameCharacter implements Serializable
 	public abstract boolean move();
 
 	
-	public boolean damage(int amount)
+	public boolean damage(double attack)
 	{
-		this.health -= amount;
+		this.health -= attack;
 		
 		return true;
 	}

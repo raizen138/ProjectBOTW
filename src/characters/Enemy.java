@@ -14,6 +14,7 @@ public class Enemy extends GameCharacter{
 		super(newRange, allSprites, newHealth, newWeapon);
 		this.setX(x);
 		this.setY(y);		
+		dropdbass = newDrop;
 	}
 
 	public Drop getDrop()
@@ -37,14 +38,15 @@ public class Enemy extends GameCharacter{
 		
 	public void Update()
 	{
-		if(linkInRange())
-		{
-			attack(CodigoNES.link);
-		}
-		else
-		{
-			move();
-		}
+		
+			if(linkInRange())
+			{
+				attack(CodigoNES.link);
+			}
+			else
+			{
+				move();
+			}	
 	}
 	
 	private boolean linkInRange()

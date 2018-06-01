@@ -2,6 +2,7 @@ package interactables;
 
 import characters.Link;
 import items.Item;
+import items.Weapon;
 import main.CodigoNES;
 import terrain.GameMap;
 
@@ -26,10 +27,12 @@ public class Overworld extends Interactable {
 		GameMap currentMap = CodigoNES.CurrentMap();
 		Link link = CodigoNES.getLink();
 		
+		
 		if(link.giveItem(drop)) 
 		{
 			currentMap.setInteractable(null, x2, y2);
 		}
+			
 		
 		
 		

@@ -60,5 +60,10 @@ public class Chest extends Interactable
 			return range[0];
 		}
 	}
+	
+	public void setOpen()
+	{
+		open = true;
+	}
 
 }

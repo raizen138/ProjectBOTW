@@ -1,4 +1,5 @@
 package graphics;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -140,29 +141,29 @@ public class Taulell extends JPanel {
 				initoverSquares(overdraw.length, overdraw[0].length);
 				for (int i = 0; i < overdraw.length; i++) {
 					for (int j = 0; j < overdraw[0].length; j++) {
-						oversquares[i][j].overdraw(g2, overdraw[i][j], imatges);
+						oversquares[i][j].overdraw(g2, overdraw[i][j], imatges, actfreedraw, freedrawx, freedrawy);
 					}
 				}
 			}
 			if (actoverdrawa) {
-				for(int k =0;k<overdrawa.length;k++) {
+				for (int k = 0; k < overdrawa.length; k++) {
 					initoverSquares(overdrawa[k].length, overdrawa[k][0].length);
 					for (int i = 0; i < overdrawa[k].length; i++) {
 						for (int j = 0; j < overdrawa[k][0].length; j++) {
-							oversquares[i][j].overdraw(g2, overdrawa[k][i][j], imatges);
+							oversquares[i][j].overdraw(g2, overdrawa[k][i][j], imatges, actfreedraw, freedrawx,
+									freedrawy);
 						}
-					}	
+					}
 				}
-				
+
 			}
 
 		}
 
 	}
-	
-	
+
 	public void borraOverdraw() {
-		int[][][] borra = {{{0}}};
+		int[][][] borra = { { { 0 } } };
 		this.overdibuixa(borra);
 	}
 
@@ -256,7 +257,7 @@ public class Taulell extends JPanel {
 		repaint();
 
 	};
-	
+
 	public void overdibuixa(int[][][] a) {
 		this.actoverdrawa = true;
 		this.overdrawa = a;
@@ -446,16 +447,16 @@ public class Taulell extends JPanel {
 	public int getMousecol() {
 		return mousecol;
 	}
-	
+
 	public int getActualMousefil() {
 		int temp = actualMousefil;
-		actualMousefil=-1;
+		actualMousefil = -1;
 		return temp;
 	}
 
 	public int getActualMousecol() {
 		int temp = actualMousecol;
-		actualMousecol=-1;
+		actualMousecol = -1;
 		return temp;
 	}
 
@@ -466,7 +467,7 @@ public class Taulell extends JPanel {
 	public void setMousecol(int mousecol) {
 		this.mousecol = mousecol;
 	}
-	
+
 	public void setActualMousefil(int mousefil) {
 		this.actualMousefil = mousefil;
 	}
@@ -508,7 +509,8 @@ class SquareRx2 {
 
 	}
 
-	public void overdraw(Graphics2D g2, int value, String[] overimatges) {
+	public void overdraw(Graphics2D g2, int value, String[] overimatges, boolean actfreedraw, double[] freedrawx,
+			double[] freedrawy) {
 		if (!(overimatges[value].equals(""))) { // Entrendrem que un string buit
 												// significa que no vols imatge
 												// en aquella
@@ -516,17 +518,20 @@ class SquareRx2 {
 			BufferedImage img = null;
 			try {
 				img = ImageIO.read(new File(overimatges[value]));
+				if (actfreedraw) {
+					g2.drawImage(img, (int) (x - (xInc * (freedrawx[value] - 1))),
+							(int) (y - (yInc * (freedrawy[value] - 1))), (int) (x + xInc), (int) (y + yInc), 0, 0,
+							img.getWidth(), img.getHeight(), null);
+				} else {
 
-				g2.drawImage(img, (int) x, (int) y, (int) (x + xInc), (int) (y + yInc), 0, 0, img.getWidth(),
-						img.getHeight(), null);
+					g2.drawImage(img, (int) x, (int) y, (int) (x + xInc), (int) (y + yInc), 0, 0, img.getWidth(),
+							img.getHeight(), null);
+				}
 			} catch (IOException e) {
 				System.out.println("Error on image " + overimatges[value] + " value: " + value);
 			}
 		}
 	}
-	
-	
-	
 
 	/**
 	 * Aquest metode dibuixa cada cuadrat individualment.
@@ -568,9 +573,11 @@ class SquareRx2 {
 				BufferedImage img = null;
 				try {
 					img = ImageIO.read(new File(imatges[value]));
-					
+
 					if (actfreedraw) {
-						g2.drawImage(img, (int) (x - (xInc*(freedrawx[value]-1))), (int) (y - (yInc*(freedrawy[value]-1))), (int) (x + xInc),(int) (y + yInc), 0, 0, img.getWidth(), img.getHeight(), null);
+						g2.drawImage(img, (int) (x - (xInc * (freedrawx[value] - 1))),
+								(int) (y - (yInc * (freedrawy[value] - 1))), (int) (x + xInc), (int) (y + yInc), 0, 0,
+								img.getWidth(), img.getHeight(), null);
 					} else {
 
 						g2.drawImage(img, (int) x, (int) y + 3, (int) (x + xInc), (int) (y + yInc), 0, 0,
@@ -617,7 +624,7 @@ class SquareRx2 {
 		t.setMousecol(col);
 		t.setActualMousefil(fil);
 		t.setActualMousecol(col);
-		
+
 		// si vols que les teves opcions vagin per ratolí, a partir d'aquesta
 		// funció hauries de cridar una funcio estatica de la TEVA classe. També
 		// pots consultar les variables mitjançant els getters de mosuefil y

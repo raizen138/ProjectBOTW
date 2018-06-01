@@ -366,7 +366,6 @@ public class Link extends GameCharacter{
 	{
 		GameMap currentMap = CodigoNES.CurrentMap();
 		
-		//La casilla de encima overdraw TODO
 		CodigoNES.lehud[0][x()][y()] = 19;
 		CodigoNES.lehud[3][x() - 1][y()] = drop.range;
 		CodigoNES.view();

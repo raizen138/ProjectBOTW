@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import utilities.FileManager;
 import utilities.MapCreator;
+import utilities.Sound;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
 
+	static Sound main = new Sound("music/Main.mp3");
 	/**
 	 * Launch the application.
 	 */
@@ -34,6 +36,7 @@ public class MainMenu extends JFrame {
 				try {
 					MainMenu frame = new MainMenu();
 					frame.setVisible(true);
+					main.play();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +50,7 @@ public class MainMenu extends JFrame {
 	public MainMenu() {
 		setTitle("TLOZ: Breath of the Past");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,13 +65,14 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				MapCreator.main(null);
+				main.close();
 				setVisible(false);
 				System.out.println("Wake up... Link...");
 				CodigoNES.initWorld();
 				CodigoNES.main(null);
 			}
 		});
-		b1.setBounds(152, 202, 171, 33);
+		b1.setBounds(215, 202, 171, 33);
 		contentPane.add(b1);
 		
 		
@@ -76,16 +80,17 @@ public class MainMenu extends JFrame {
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+				main.close();
 				setVisible(false);
 				CodigoNES.main(null);
 			}
 		});
-		b2.setBounds(152, 238, 171, 33);
+		b2.setBounds(215, 238, 171, 33);
 		contentPane.add(b2);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon("map\\zelda.jpg"));
-		label.setBounds(0, 0, 484, 311);
+		label.setBounds(0, 0, 600, 400);
 		contentPane.add(label);
 	}
 }

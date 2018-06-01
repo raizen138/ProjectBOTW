@@ -24,7 +24,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 1.0
+ * @version Alpha 1.0.1
  *
  */
 public class CodigoNES {
@@ -54,6 +54,7 @@ public class CodigoNES {
 	static Exit exitmap4_0 = new Exit("El mapa del viejo");
 	static Exit exitmap4_1 = new Exit("Segundos Moblins");
 	static Exit exitmap4_2 = new Exit("La Espada");
+	static Exit exitmap4_3 = new Exit("Segundos Moblins");
 	static Exit exitmap5_0 = new Exit("Primeros Moblins");
 	static Exit exitmap5_1 = new Exit("Puente");
 	static Exit exitmap6_0 = new Exit("Primeros Moblins");
@@ -267,7 +268,7 @@ public class CodigoNES {
 		mundo[2][1].setBackground("map/mapa5.jpg");
 		mundo[2][1].setMusic("music/Field.mp3");
 		mundo[3][1].setBackground("map/mapa7.jpg");
-		mundo[3][1].setMusic("music/Battle.mp3");
+		mundo[3][1].setMusic("music/Strong.mp3");
 		mundo[3][2].setBackground("map/mapa6.jpg");
 		mundo[3][2].setMusic("music/Battle.mp3");
 		mundo[0][1].setExit(exitmap1_0, 6, 0);
@@ -283,8 +284,13 @@ public class CodigoNES {
 			mundo[1][2].setExit(exitmap3_1, 10, i);
 			mundo[2][2].setExit(exitmap4_0, 0, i);
 		}
-		for(int i = 1; i<11; i++) {
+		for(int i = 3; i<11; i++) {
 			mundo[2][2].setExit(exitmap4_1, 10, i);
+			mundo[3][2].setExit(exitmap6_0, 0, i);
+		}
+		exitmap4_3.setWater(true);
+		for(int i = 1; i<3; i++) {
+			mundo[2][2].setExit(exitmap4_3, 10, i);
 			mundo[3][2].setExit(exitmap6_0, 0, i);
 		}
 		exitmap4_2.setWater(true);
@@ -547,7 +553,15 @@ public class CodigoNES {
 		} else if (link.y() == GameMap.WIDTH - 1) {
 			link.setY(0);
 		}
-		
+		if(currentMap.getTile(link.x(), link.y()).isWater())
+		{
+			link.estado = 1;
+			link.changeSprites();
+		}else
+		{
+			link.estado = 0;
+			link.changeSprites();
+		}
 		lehud[0][link.x()][link.y()] = direction;
 		currentMap.setGameCharacter(link, link.x(), link.y());
 		FileManager.saveMaps();

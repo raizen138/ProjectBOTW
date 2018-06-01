@@ -40,7 +40,7 @@ public abstract class GameCharacter implements Serializable
 	
 	public boolean isDead()
 	{
-		if(health == 0)
+		if(health <= 0)
 		{
 			return true;
 		}

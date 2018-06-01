@@ -24,7 +24,7 @@ import java.util.TimerTask;
  * The Legend of Zelda: A Breath of the Past
  * 
  * @author Rubén Hernández
- * @version Alpha 1.0.1
+ * @version Alpha 1.0.2
  *
  */
 public class CodigoNES {
@@ -260,7 +260,7 @@ public class CodigoNES {
 		mundo[0][1].setBackground("map/mapa1cerrado.jpg");
 		mundo[0][1].setMusic("music/Shrine.mp3");
 		mundo[0][2].setBackground("map/mapa2.jpg");
-		mundo[0][2].setMusic("music/Field.mp3");
+		mundo[0][2].setMusic("music/Battle.mp3");
 		mundo[1][2].setBackground("map/mapa3.jpg");
 		mundo[1][2].setMusic("music/Field.mp3");
 		mundo[2][2].setBackground("map/mapa4.jpg");
@@ -582,6 +582,31 @@ public class CodigoNES {
 		}
 		
 	}
+	
+	public static void swapMusic()
+	{
+		GameMap mapo = CurrentMap();
+		boolean banderita = false;
+		for(int i = 0; i<mapo.HEIGHT; i++) {
+			for(int j = 0; j<mapo.WIDTH; j++) {
+				if (banderita) { break;}
+				if(mapo.getChar(i, j) instanceof Enemy) 
+				{
+					banderita = true;
+				}
+			}
+		}
+		if (!banderita)
+		{
+			if(mapo.getMusic().equals("music/Battle.mp3")) {
+				mapo.setMusic("music/Field.mp3");
+				currentMusic.close();
+				currentMusic = new Sound (currentMap.getMusic());
+				currentMusic.play();
+			}
+		}
+	}
+	
 
 	public static GameMap[][] World()
 	{

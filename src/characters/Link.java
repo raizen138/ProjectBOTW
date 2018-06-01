@@ -191,6 +191,7 @@ public class Link extends GameCharacter{
 		if (currentMap.getChar(x3, y3) instanceof Enemy)
 		{
 			attack2(currentMap.getChar(x3, y3));
+			
 			boolean etamuerto = currentMap.getChar(x3, y3).isDead();
 
 		
@@ -207,6 +208,8 @@ public class Link extends GameCharacter{
 			Enemy temp = (Enemy) currentMap.getChar(x3, y3);
 			currentMap.setInteractable(temp.getDrop(), x3, y3);
 			currentMap.setGameCharacter(null, x3, y3);
+			CodigoNES.view();
+			CodigoNES.swapMusic();
 		}
 		}
 		
